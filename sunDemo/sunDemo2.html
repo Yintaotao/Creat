@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="keywords" content="CSS3模拟太阳系8大行星运动,Html5Canvas绘制行星轨迹" />
+<meta name="description" content="HTML5Canvas元素+CSS3和javascript动态模拟太阳系8大行星的运动轨迹" />
+<meta name="application-name" content="" />
+<title>Html5Canvas绘制行星轨迹|CSS3太阳系8大行星运动模拟</title>
+<style type="text/css">
+body {
+	background-color: #05081b;
+}
+#beian {
+	text-align: center;
+	float: left;
+	width: 100%;
+	margin-top: 50px
+}
+#beian a {
+	color: #fff;
+	font: 13px "微软雅黑", Arial, Helvetica, sans-serif;
+}
+Canvas {
+	position: absolute;
+	
+}
+#center {
+	margin-top: 300px;
+}
+span{
+	width:30px;
+	float:left;
+	height:15px;
+	
+	margin-right:5px;
+	margin-left:20px;
+}
+.info>a{
+	float:left;
+	text-decoration:none;
+	color:#fff;
+}
+.info{
+	color:#fff;
+	font: 13px "微软雅黑", Arial, Helvetica, sans-serif;
+	margin-top:150px;
+	width:800px;
+	margin:0 auto;
+	text-align:center;
+}
+</style>
+</head>
+<body>
+
+<div id="main" style="width:650px; height:650px; text-align:center; margin:0 auto; margin-top:50px;"></div>
+<p class="info">
+   <span style="background-color:#daac20;"></span><a>太阳</a> 
+   <span style="background-color:#451f16;"></span><a>金星</a>
+   <span style="background-color:#a9603f;"></span><a>水星</a>
+   <span style="background-color:#4169e1;"></span><a>地球</a>
+   <span style="background-color:#624027;"></span><a>火星</a> 
+   <span style="background-color:#fffae3;"></span><a>土星</a>
+   <span style="background-color:#a59681;"></span><a>木星</a>
+   <span style="background-color:#b0e0f4;"></span><a>天王星</a>
+   <span style="background-color:#7091c6;"></span><a>海王星</a>
+</p>
+<div id="beian">&nbsp;&nbsp;&nbsp;&nbsp;<a>Copyright©2015 Yintaotao版权所有</a>&nbsp;&nbsp;<a>2015年1月15日</a>&nbsp;&nbsp;
+</div>
+</body>
+<script src="http://www.pengyaou.com/jquery-1.4.min.js"></script>
+<script type="text/javascript">
+    //利用CSS3transform属性，HTML5Canvas元素以及javascript timer打造的太阳系8大行星的运动轨迹模拟。
+		$(document).ready(function(e) {
+			canvasHandler.Center();
+			canvasHandler.Path();
+			canvasHandler.Start();
+		});
+		var canvasHandler = {
+			//绘制太阳
+			Center: function() {
+				var currentCanvas = document.createElement("Canvas");
+				currentCanvas.id = "center";
+				currentCanvas.width = 40;
+				currentCanvas.height = 40;
+				$("#main").append(currentCanvas);
+				var penC = currentCanvas.getContext("2d");
+				penC.fillStyle = "#daac20";
+				penC.beginPath();
+				penC.arc(20, 20, 20, 0, Math.PI * 2, true);
+				penC.closePath();
+				penC.fill();
+			},
+			Path: function() {
+				for (var i = 0; i < 8; i++) {
+					var currentCanvas = document.createElement("Canvas");
+					currentCanvas.className = "item";
+					currentCanvas.width = 800;
+					currentCanvas.height = 800;
+					var penC = currentCanvas.getContext("2d");
+					var r = (i + 1) * 35 + 10;
+					penC.beginPath();
+					penC.arc(400, 400, r, 0, Math.PI * 2, true);
+					penC.closePath();
+					penC.strokeStyle = "#4F4F4F";
+					penC.stroke();
+
+					var spenC = currentCanvas.getContext("2d");
+
+					spenC.beginPath();
+
+					switch (i) {
+					case 0:
+						spenC.arc(400 - r, 400, 5, 0, Math.PI * 2, true);
+						spenC.fillStyle = "#451f16";
+						break;
+					case 1:
+						spenC.arc(400 - r, 400, 8, 0, Math.PI * 2, true);
+						spenC.fillStyle = "#a9603f";
+						break;
+					case 2:
+						spenC.arc(400 - r, 400, 10, 0, Math.PI * 2, true);
+						spenC.fillStyle = "#4169e1";
+						break;
+						case 3:
+						spenC.arc(400 - r, 400, 8, 0, Math.PI * 2, true);
+						spenC.fillStyle = "#624027";
+						break;
+						case 4:
+						spenC.arc(400 - r, 400, 12, 0, Math.PI * 2, true);
+						spenC.fillStyle = "#fffae3";
+						break;
+							case 5:
+						spenC.arc(400 - r, 400, 10, 0, Math.PI * 2, true);
+						spenC.fillStyle = "#a59681";
+						break;
+							case 6:
+						spenC.arc(400 - r, 400, 9, 0, Math.PI * 2, true);
+						spenC.fillStyle = "#b0e0f4";
+							case 7:
+						spenC.arc(400 - r, 400, 6, 0, Math.PI * 2, true);
+						spenC.fillStyle = "#7091c6";
+						break;
+					default:
+						spenC.arc(400 - r, 400, 5, 0, Math.PI * 2, true);
+						spenC.fillStyle = "#fff";
+						break;
+					}
+					spenC.closePath();
+					spenC.stroke();
+					spenC.fill();
+					$("#main").append(currentCanvas);
+					$(currentCanvas).css("margin-left", "-380px").css("margin-top", "-80px");
+					var deg = (i + 1) * 110 + "deg";
+					currentCanvas.id = (i + 1) * 110;
+					$(currentCanvas).css("-moz-transform", "rotate(" + deg + ")");
+					$(currentCanvas).css("transform", "rotate(" + deg + ")");
+					$(currentCanvas).css("-webkit-transform", "rotate(" + deg + ")");
+					$(currentCanvas).css("-ms-transform", "rotate(" + deg + ")");
+					$(currentCanvas).css("-o-transform", "rotate(" + deg + ")");
+				}
+			},
+			Start: function() {
+				this.Earch();
+				this.Venus();
+				this.Mercury();
+				this.Mars();
+				this.Saturn();
+				this.Jupiter();
+				this.Uranus();
+				this.Neptune();
+			},
+			Animate: function(a, b, c) {
+				var currentCanvas = a;
+				var startDeg = b;
+				var ti = setInterval(function() {
+					startDeg++;
+					var deg = startDeg + "deg";
+					$(currentCanvas).css("-moz-transform", "rotate(" + deg + ")");
+					$(currentCanvas).css("transform", "rotate(" + deg + ")");
+					$(currentCanvas).css("-webkit-transform", "rotate(" + deg + ")");
+					$(currentCanvas).css("-ms-transform", "rotate(" + deg + ")");
+					$(currentCanvas).css("-o-transform", "rotate(" + deg + ")");
+				}, c)
+			},
+			//地球
+			Earch: function() {
+				this.Animate($(".item")[2], 330, 80);
+			},
+			//金星
+			Venus: function() {
+				this.Animate($(".item")[0], 110, 100);
+			},
+			//水星
+			Mercury: function() {
+				this.Animate($(".item")[1], 220, 50);
+			},
+			//火星
+			Mars: function() {
+				this.Animate($(".item")[3], 330, 50);
+			},
+			//土星
+			Saturn: function() {
+				this.Animate($(".item")[4], 440, 80);
+			},
+			//木星
+			Jupiter: function() {
+				this.Animate($(".item")[5], 550, 80);
+			},
+			//天王星
+			Uranus: function() {
+				this.Animate($(".item")[6], 660, 80);
+			},
+			//海王星
+			Neptune: function() {
+				this.Animate($(".item")[7], 770, 80);
+			}
+
+		}
+	</script>
+</html>

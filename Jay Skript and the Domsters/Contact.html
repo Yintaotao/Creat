@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>index</title>
+<link rel="stylesheet" href="styles/basic.css" media="screen">
+<script src="scripts/modernizr.custom.43210.js"></script>
+<script src="scripts/global.js"></script>
+<script src="scripts/contact.js"></script>  
+</head>
+
+<body>
+<header>
+<img src="images/logo.gif" alt="Jay Skript and the Domsters" />
+   <nav class="nav">
+     <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="photos.html">Photos</a></li>
+        <li><a href="live.html">Live</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+   </nav>
+</header>
+<article>
+    <h1>Contact the band</h1>
+	<form method="#" action="submit.html">
+        <fieldset>
+            <p>
+                <label for="name">Name:</label><!--for属性规定label与哪个表单元素绑定，值是label要绑定的元素的id-->
+                <input type="text" id="name" name="name" placeholder="Your name" required="required" /><!--placeholder属性添加了占位符文本，不写内容时显示placeholder值，写了之后就消失，很实用的一个功能-->
+            </p>
+            <p>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="name" placeholder="Your email address" required="required" />
+            </p>
+            <p>
+                <label for="message">Message:</label>
+                <textarea cols="45" rows="7" id="message" name="message" required="required" placeholder="Write your message here."></textarea>
+            </p>
+            <input type="submit" value="Send" />
+        </fieldset>
+	</form>
+</article> 
+</body>
+</html>

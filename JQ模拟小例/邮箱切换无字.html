@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>邮箱获取焦点切换</title>
+<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+<style type="text/css">
+#test1 li{
+	display:inline;
+}
+</style>
+<script type="text/javascript">
+   var $li = $('ul li:eq(1)');//查找元素节点
+   var li_txt = $li.text();
+   //alert(li_txt);
+   
+   var $para = $('p');// 查找属性节点
+   var p_txt = $para.attr('title');
+   //alert(p_txt);
+   //创建来两个<li>新元素，并将这两个新元素插入文档中
+   var $li_1 = $('<li></li>');
+   var $li_2 = $('<li></li>');
+   $('ul').append($li_1);
+   $('ul').append($li_2);//也可采取链式操作$('ul').append($li_1).append($li_2);
+   
+   var $li_1 = $('<li>香蕉</li>');//创建一个<li>节点，包括元素节点和文本，“香蕉”就是创建爱你的文本节点节点
+   var $li_2 = $('<li>葡萄</li>');
+   $('ul').append($li_1); //添加到<ul>节点中，使之能在网页中显示
+   $('ul').append($li_2);
+   
+   var $li_1 = $("<li title='香蕉'>香蕉</li>");//创建<li>元素，包括元素节点，文本节点，属性节点，其中title=‘香蕉’就是创建的属性节点
+   var $li_2 = $("<li title= '雪梨'>雪梨</li>");
+   $('ul').append($li_1);
+   $('ul').append($li_2);
+
+   //remove方法
+   $('ul li:eq(6)').remove();
+   $('ul li').remove('li[title = 菠萝]');
+   //detach方法
+   $('ul li').click(function(){
+		       alert($(this).html());
+		   })
+		   var $li = $('ul li:eq(1)').detach(); //删除元素
+		   $li.appendTo('ul'); //重新加载此元素，发现它之前绑定的事件还在，如果使用remove()方法，删除元素的话，那么它之前绑定的事件将失效。
+	//empty方法	   
+   $('ul li:eq(1)').empty();//获取第二个<li>元素节点后，清空此元素里的内容，注意是元素里
+   
+   //邮箱获取焦点
+   $(function(){
+	   $('#address').focus(function(){//地址框获得鼠标焦点
+	       var txt_value = $(this).val();//得到当前文本框的值
+	       if(txt_value=="请输入邮箱地址"){
+		       $(this).val(''); //如符合符条件，则清空文本框内容
+		       }
+	       })
+       $('#address').blur(function(){ //地址框失去鼠标焦点
+	       var txt_value = $(this).val();//得到当前文本框的值
+	       if(txt_value==""){
+		       $(this).val('请输入邮箱地址');//如果符合条件则设置内容
+		       }
+	       })
+		$('#password').focus(function(){//地址框获得鼠标焦点
+	       var txt_value = $(this).val();//得到当前文本框的值
+	       if(txt_value=="请输入邮箱密码"){
+		       $(this).val(''); //如符合符条件，则清空文本框内容
+		       }
+	       })
+       $('#password').blur(function(){ //地址框失去鼠标焦点
+	       var txt_value = $(this).val();//得到当前文本框的值
+	       if(txt_value==""){
+		       $(this).val('请输入邮箱密码');//如果符合条件则设置内容
+		       }
+	       })
+
+	   })
+   
+</script>
+
+<script type="text/javascript" src="test.js"></script>
+</head>
+
+<body>
+<div class="test">
+    <p title="选择你喜欢的水果">你最喜欢的水果是？</p>
+    <ul>
+        <li title="苹果">苹果</li>
+        <li title="橘子">橘子</li>
+        <li title="香蕉">香蕉</li>
+    </ul>
+</div>
+<hr><br />
+<div id="a">
+    <input type="text" id="address" value="请输入邮箱地址" />
+    <br />
+    <input type="text" id="password" value="请输入邮箱密码" />
+    <br />
+    学历：<select name="education">
+    		<option value="大学">大学</option>
+            <option value="高中">高中</option>
+            <option value="初中">初中</option>
+            <option value="小学">小学</option>        
+         </select><br />
+    爱好：<input type="checkbox" value="篮球" />篮球
+     	 <input type="checkbox" value="足球" />足球
+         <input type="checkbox" value="冰球" />冰球
+         <input type="checkbox" value="羽毛球" />羽毛球
+         <input type="checkbox" value="网球" />网球
+         <br />
+    上传：<input type="file" value="file" />
+    <pre>     <input type="button" value="登陆" /></pre>
+</div>
+<br />
+
+
+</body>
+</html>

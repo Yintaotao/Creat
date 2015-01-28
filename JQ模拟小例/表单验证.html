@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>表单验证</title>
+<script src="jquery-2.1.1.min.js" type="text/javascript"></script> 
+<style type="text/css">
+* {
+	margin:0px;
+	padding:0px;
+}
+body {
+	margin:30px auto;
+}
+form {
+	margin:0px auto;
+	display:block;
+	width:500px;
+	border:1px solid #099;
+}
+.high {
+	font-size:xx-small;
+	color:#F00;
+}
+div {
+	margin:5px;
+	margin-left:0px;
+	display:block;
+	width:500px;
+}
+.sub {
+	margin:5px;
+	margin-left:50px;
+	display:block;
+	width:450px;
+}
+.sub input {
+	display:inline-block;
+	width:55px;
+}
+.int label {
+	height:30px;
+}
+.int textarea {
+	width:150px;
+	height:50px
+}
+.error {
+	font:9px "Comic Sans MS", cursive;
+	color:#F00;
+}
+.ok {
+	font:9px "Comic Sans MS", cursive;
+	color:#063;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	 //表单内class属性为required的文本是必填，因此在文本框后追加一个小红色星星标识
+	 $('form :input.required').each(function() {
+        var $required = $("<strong class='high'>*</strong>");//创建元素
+		$(this).parent().append($required);
+    });
+
+	 //验证表单：1,判断当前失去焦点元素是“用户名”还是“邮箱”，然后分别处理
+	 //如果是“用户名”，判断元素的值的长度是否小于6，如果小于6，则用红色提醒用户输入不正确，反之用绿色提醒正确
+	 //如果是“邮箱”，判断值是否符合邮箱的格式，如果不符合，则用红色提醒用户输入不正确，反之，绿色提醒正确。
+	 //将提示信息追加到当前元素的父元素后面
+
+	//验证用户
+	$('#username').focus(function(){//地址框获得鼠标焦点
+	   var txt_value = $(this).val();//得到当前文本框的值
+	       if(txt_value=="请输入用户名"){
+		       $(this).val(''); //如符合符条件，则清空文本框内容
+		       }
+	   }).blur(function(){ //地址框失去鼠标焦点
+		   	var $parent = $(this).parent();
+			$parent.find(".formtips").remove();//由于每次元素失去焦点后，都会创建一个新的提醒，然后将它追加到文档中，最后就出现了多次的提醒信息，
+	//因此，需要创建提醒元素之前，将当前元素以前的提示元素都删除。
+			if(this.value.length < 6){   
+				var errorMsg = '请输入至少6位的用户名.';
+				$parent.append('<span class="formtips error">' +errorMsg+ '</span>');
+				var txt_value = $(this).val();//得到当前文本框的值
+					if(txt_value==""){ 
+			    	$(this).val("请输入用户名");//如果符合条件则设置内容
+					var $parent = $(this).parent();
+					$parent.find(".formtips").remove();
+			   		}
+			}else{
+					var okMsg = '输入正确.';
+					$parent.append('<span class="formtips ok">' +okMsg+ '</span>');
+					}	      
+		       
+	       });
+	 //验证邮箱
+	$('#email').focus(function(){//地址框获得鼠标焦点
+	   var txt_value = $(this).val();//得到当前文本框的值
+	       if(txt_value=="请输入邮箱地址"){
+		       $(this).val(''); //如符合符条件，则清空文本框内容
+		       }
+	       }).blur(function(){ //地址框失去鼠标焦点
+		   	var $parent = $(this).parent();
+	    	$parent.find(".formtips").remove();      				
+				if(!/.+@+\.[a-zA-Z]{2,4}$/.test(this.value)){    		
+					var errorMsg = '请输入正确邮箱地址.';
+					$parent.append('<span class="formtips error">' +errorMsg+ '</span>'); 
+					var txt_value = $(this).val();//得到当前文本框的值
+						if(txt_value==""){ 
+		   	   			$(this).val("请输入邮箱地址");//如果符合条件则设置内容
+						var $parent = $(this).parent();
+						$parent.find(".formtips").remove();
+						}
+				}else{
+					var okMsg = '输入正确.';
+					$parent.append('<span class="formtips ok">' +okMsg+ '</span>');
+					}			
+       });
+	//提交
+	$('#send').click(function() {
+        $('form .required:input').trigger('blur');
+		var numError = $('form .error').length;
+		if(numError){
+			return false;
+			}
+		alert("注册成功，密码已发送到你的邮箱，请查收");
+    });
+})
+</script>
+</head>
+
+<body>
+<form method="post" action="#">
+	<div class="int">
+    	<label for="username">用户名：</label>
+        <input type="text" id="username" class="required" value="请输入用户名" />
+    </div>
+    <div class="int">
+    	<label for="email">邮&nbsp;&nbsp;箱：</label>
+        <input type="text" id="email" class="required" value="请输入邮箱地址" />
+    </div>
+    <div class="int">
+    	<label for="personinfo">个人资料</label>
+        <textarea type="text" id="personinfo" ></textarea>
+    </div>
+    <div class="sub">
+    <input type="submit" value="提交" id="send" />
+    <input type="reset" value="重置" id="reset" />
+    </div>
+</form>
+</body>
+</html>

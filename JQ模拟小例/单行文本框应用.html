@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>单行文本框应用</title>
+<script src="jquery-2.1.1.min.js" type="text/javascript"></script> 
+<style type="text/css">
+.focus {
+	outline:none;/*去掉外边框*/
+	border:1px solid;
+	background:#fcc;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	$(':input').focus(function(){
+			$(this).addClass('focus');
+		}).blur(function() {
+            $(this).removeClass('focus');
+        });
+	});
+</script>
+</head>
+
+<body>
+<form action="#" method="post" id="regfrom">
+	<fieldset>
+    	<legend>个人基本信息</legend>
+        <div>
+        	<label for="username">用户：</label>
+            <input id="username" type="text" />
+        </div>
+        <div>
+        	<label for="pass">密码：</label>
+            <input id="pass" type="text" />
+        </div>
+        <div>
+        	<label for="msg">详细信息：</label>
+            <textarea id="msg"></textarea>
+        </div>
+    </fieldset>
+</form>
+
+
+</body>
+</html>

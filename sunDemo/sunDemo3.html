@@ -1,0 +1,154 @@
+<!DOCTYPE HTML5>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>html5绘制圆形小球根据轨道旋转</title>		
+	<style>
+        body{
+            background: black;
+        }
+        #canvas{
+            /*background: #fff;*/
+            background: #000;
+            margin-left:100px;
+            margin-top:-50px;
+        }
+	</style>
+</head>
+<body>
+	<canvas id="canvas" width="1000" height="1000"></canvas>
+</body>
+<script type="text/javascript">
+    var cxt = document.getElementById('canvas').getContext('2d');       
+
+        cxt.strokeStyle = "#fff";
+        
+    //画轨道
+    
+    function drawTrack(){
+        for(var i=0;i<8;i++){
+            cxt.beginPath();
+            cxt.arc(500,500,(i+1)*50,0,360,false);
+            cxt.closePath();
+            cxt.strokeStyle = "#fff";
+            cxt.stroke();
+        }
+    }
+    //封装类，利用类的继承形成8颗行星以及太阳
+    function Star(x,y,radius,cycle,sColor,eColor){
+        this.x = x;
+        this.y = y;
+        this.radius = radius;//半径
+        this.cycle = cycle;  //公转周期
+        this.sColor = sColor;//星球颜色渐变开始色
+        this.eColor = eColor;//星球颜色渐变开始色
+        this.color = null;
+        this.interal = 0;
+        this.drawStar = function() {
+            cxt.save();//保存之前的画布内容
+            cxt.translate(500,500);//重置0,0坐标点
+            cxt.rotate(this.interal*(360/this.cycle)*Math.PI/180);
+            //画星球
+            cxt.beginPath();
+            cxt.arc(this.x,this.y,this.radius,0,360,false);
+            cxt.closePath();
+            //设置星球颜色
+            this.color = cxt.createRadialGradient(this.x,this.y,0,this.x,this.y,this.radius) ;
+            this.color.addColorStop(0,this.sColor);//渐变开始点
+            this.color.addColorStop(1,this.eColor);//渐变结束点
+            cxt.fillStyle = this.color;
+            cxt.fill();
+            cxt.restore();//恢复之前保存的画布内容
+            this.interal += 1;//每个时间间隔改变时间
+        }
+    };
+    //以下为创建各星球的构造函数
+    function Sun(){
+        Star.call(this,0,0,20,0,"#F00","#F90");
+    }
+    function Mercury(){//水星
+        Star.call(this,0,-50,10,87.70,"#a69697","#5c3e40");
+    }
+    function Venus(){//金星
+        Star.call(this,0,-100,10,224.701,"#c4bbac","#1f1315");
+    }
+    function Earth(){//地球
+        Star.call(this,0,-150,10,365,"#78b1e8","#050c12");
+    }
+    function Mars(){//火星
+        Star.call(this,0,-200,10,686.98,"#cec986","#76422d");
+    }
+    function Jupiter(){//木星
+        Star.call(this,0,-250,10,4332.589,"#c0a4be","#322222");
+    }
+    function Satum(){//土星
+        Star.call(this,0,-300,10,10759.5,"#f7f9e3","#5c4533");
+    }
+    function Uranus(){//天王星
+        Star.call(this,0,-350,10,30799.095,"#a7e1e5","#19243a");
+    }
+    function Neptune(){//海王星
+        Star.call(this,0,-400,10,60152,"#0661b2","#1e3b73");
+    }
+    
+    var sun = new Sun();
+    var mercury = new Mercury();
+    var venus = new Venus();
+    var earth = new Earth();
+    var mars = new Mars();
+    var jupiter = new Jupiter();
+    var satum = new Satum();
+    var uranus = new Uranus();
+    var neptune = new Neptune();
+    function move(){
+        cxt.clearRect(0,0,1000,1000);
+        drawTrack();
+        sun.drawStar();
+        mercury.drawStar();
+        venus.drawStar();
+        earth.drawStar();
+        mars.drawStar();
+        jupiter.drawStar();
+        satum.drawStar();
+        uranus.drawStar();
+        neptune.drawStar();
+    }
+    //sun.drawStar();
+    setInterval(move,10);
+    //draw("canvas");
+	//clearRectect("canvas");
+	//drawArc("canvas");
+	//drawLine("canvas");
+	//drawCurve("canvas");
+	//drawGradient("canvas");
+	//drawRadialGradient("canvas");
+    //drawTanslate("canvas");
+    //drawOperation("canvas");
+    //drawStar("canvas");
+    //drawMove("canvas");
+    //draw13("canvas");
+    //draw28("canvas");
+    //draw12("canvas");
+    //draw15("canvas");//图片裁剪
+    //drawTxt("canvas");
+    //setInterval(drawClock,1000);
+    //drawClock();
+    //drawSunSystem();
+    /*   */
+    /*window.onload = function(){
+        var canvas = document.getElementById("canvas");
+        var cxt = canvas.getcxt("2d");
+        var x = 188;
+        var y = 130;
+        var width = 200;
+        var height = 137;
+        var image = new Image();
+        image.onload = function() {
+            cxt.drawImage(image,x,y,width,height);
+        };
+        image.src = "img/html5.png";
+    }
+*/
+</script>
+</html>
+

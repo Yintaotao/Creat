@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>动态时钟</title>
+	<script type="text/javascript">
+	 window.onload = function(){
+		clock();
+		setInterval(clock,1000);
+	}
+	function clock(){
+	var now = new Date();
+	var ctx = document.getElementById('clock').getContext('2d');
+	//保存状态，将当前状态压栈
+	ctx.save();
+	//清理图像
+	ctx.clearRect(0,0,150,150);
+	//已(75, 75)为原点，将图像复制
+	ctx.translate(75, 75);
+	//横纵比
+	ctx.scale(0.5, 0.5);
+	//逆转90°
+	ctx.rotate(-Math.PI/2);
+	//设置线条颜色
+	ctx.strokeStyle = "black";
+	//设置填充颜色
+	ctx.fillStyle = "white";
+	//设置线条宽度
+	ctx.lineWidth = 8;
+	//设置线边角为圆角
+	ctx.lineCap = "round";
+	//保存状态，将当前状态压栈
+	ctx.save();
+	//画出12个时刻
+	for (var i=0;i<12; i++){
+		//以当前原点为圆心
+		ctx.beginPath();
+		//旋转30°
+		ctx.rotate(Math.PI/6);
+		//以圆心外100像素处为起点，120像素处为终点画线
+		ctx.moveTo(100,0);
+		ctx.lineTo(120,0);
+		//画出这条路线
+		ctx.stroke();
+	}
+	//出栈，将取出的状态作为当前状态
+	ctx.restore();
+	//再将状态压栈，保存起来
+	ctx.save();
+	//设置线条宽度
+	ctx.lineWidth = 5;
+	//画出60个分钟
+	for (i=0;i<60;i++){
+		//因为时针就是每五分钟的点了，所以跳过不画了
+		if (i%5!=0) {
+		  ctx.beginPath();
+		  ctx.moveTo(117,0);
+		  ctx.lineTo(120,0);
+		  ctx.stroke();
+		}
+		//旋转6°
+		ctx.rotate(Math.PI/30);
+	}
+	//出栈，将取出的状态作为当前状态
+	ctx.restore();
+	
+	//取出当前秒
+	var sec = now.getSeconds();
+	//取出当前分
+	var min = now.getMinutes();
+	//取出当前时
+	var hr  = now.getHours();
+	//判断是否是24小时计时法，是则减12
+	hr = hr>=12 ? hr-12 : hr;
+	//再将状态压栈，保存起来
+	ctx.save();
+
+	// 画出时针
+	//时针转向当前位置
+	ctx.rotate( hr*(Math.PI/6) + (Math.PI/360)*min + (Math.PI/21600)*sec );
+	//设置时针宽度
+	ctx.lineWidth = 14;
+	//以当前原点为圆心
+	ctx.beginPath();
+	//反向延长20个像素
+	ctx.moveTo(-20,0);
+	ctx.lineTo(80,0);
+	//画线
+	ctx.stroke();
+	ctx.restore();
+
+	//画分针
+	ctx.save();
+	ctx.rotate( (Math.PI/30)*min + (Math.PI/1800)*sec )
+	ctx.lineWidth = 9;
+	ctx.strokeStyle = '#ff8936';
+	ctx.beginPath();
+	ctx.moveTo(-28,0);
+	ctx.lineTo(105,0);
+	ctx.stroke();
+	ctx.restore();
+
+	//画秒针
+	ctx.save();
+	ctx.rotate(sec * Math.PI/30);
+	ctx.strokeStyle = "red";
+	ctx.fillStyle = "red";
+	ctx.lineWidth = 6;
+	ctx.beginPath();
+	ctx.moveTo(-30,0);
+	ctx.lineTo(120,0);
+	ctx.stroke();
+	ctx.beginPath();
+	ctx.arc(0, 0, 10, 0, Math.PI * 2, true);
+	ctx.fill();//fill() 方法填充当前的图像（路径）。默认颜色是黑色。如果路径未关闭，那么 fill() 方法会从路径结束点到开始点之间添加一条线，以关闭该路径，然后填充该路径。
+	ctx.beginPath();
+	ctx.arc(85, 0, 10, 0, Math.PI * 2, true);
+	ctx.stroke();
+	ctx.fillStyle = "black";
+	ctx.arc(0, 0, 3, 0, Math.PI * 2, true);
+	ctx.fill();
+	ctx.restore();
+
+	//加一个表盘
+	ctx.beginPath();
+	ctx.lineWidth = 14;
+	ctx.strokeStyle = 'gray';
+	ctx.arc(0,0,142,0,Math.PI*2,true);
+	ctx.stroke();
+	ctx.restore();
+}
+</script>
+</head>
+<body>
+	<canvas id="clock" height="150" width="150"></canvas>
+</body>
+</html>

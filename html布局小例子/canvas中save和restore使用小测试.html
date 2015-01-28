@@ -1,0 +1,23 @@
+<canvas id="ca" width="300" height="300">
+
+    </canvas>
+    <script>
+        var ca = document.getElementById('ca');
+        var ctx = ca.getContext('2d');
+        
+ctx.save();
+        ctx.shadowOffsetX = 10;
+        ctx.shadowOffsetY = 10;
+        ctx.shadowBlur = 5;
+        ctx.shadowColor = "rgba(0,0,0,0.5)";
+    ctx.save();
+        ctx.fillStyle = "#CC0000";
+        ctx.fillRect(10, 10, 150, 100);
+
+        ctx.fillStyle = "#green";
+        ctx.fillRect(200, 100, 150, 100);
+    ctx.restore();
+ctx.restore();
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(180, 10, 150, 100);
+    </script>

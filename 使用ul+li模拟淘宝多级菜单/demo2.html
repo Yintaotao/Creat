@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>多级竖直选项</title>
+<style type="text/css">
+body{
+	margin:0px;
+	padding:0px;
+}
+.box {
+	position:relative;/*相对定位盒子，使得第一层ul能相对于此盒子发挥绝对定位*/
+	width:500px;
+	height:500px;
+}
+ .box ul {
+	 margin:0px;
+	 padding:0px;
+	 position:absolute;/*：第一层ul绝对定位，谁也挤不走*/
+	 width:400px;
+	 height:200px;
+	 top:50px;
+	 left:50px;
+	 list-style:none;
+
+ }
+ .box ul li{
+	 display:block;
+	 width:80px;
+	 height:30px;
+	 text-decoration:none;
+	 text-align:center;
+	 border:#CCC solid 1px;
+	 background:#933;
+ }
+ .box ul li a,.box ul li a:visited{
+	 display:block;
+	 width:80px;
+	 height:30px;
+	 line-height:30px;
+	 color:#FFF;
+	 text-decoration:none;
+	 text-align:center;
+ }
+ .box ul li ul {
+	 display:none;
+ }
+
+ .box ul li:hover ul {
+	 position:relative;/*第二层ul相对定位*/
+	 left:82px;
+	 top:-31px;
+	 margin:0px;
+	 display:block;
+ }
+ 
+  .box ul li:hover ul li{
+	 margin:0px;
+	 display:block;
+	 width:100px;
+	 height:30px;
+	 background:#936;
+	 border:1px #FFFFFF solid;
+	 text-align:center;
+ }
+ .box ul li:hover ul li a{
+	 margin:0px;
+	 display:block;
+	 width:100px;
+	 height:30px;
+	 background:#C93 ;
+ }
+ .box ul li:hover ul li a:hover {
+	 display:block;
+	 width:100px;
+	 height:30px;
+	 background:#099;
+	 color:#000;
+	 line-height:30px;
+ }
+ .box ul li:hover ul li ul {
+	 display:none;
+ }
+ .box ul li:hover ul li:hover ul {
+	 position:relative; /*第三层ul相对定位*/
+	 margin:0px;
+	 padding:0px;
+	 display:block;
+	 left:101px;
+	 top:-31px;
+	 text-align:center;
+ }
+.box ul li:hover ul li:hover ul  li a{
+	 background:#096;
+	 display:block;
+	 width:100px;
+	 height:30px;
+	 text-align:center;
+}
+.box ul li:hover ul li:hover ul  li a:hover {
+	font-size:14px;
+	background:#C30;
+}
+</style>
+</head>
+
+<body>
+<div class="box">
+     <ul>
+         <li>
+             <a href="#">衬衫</a>
+             <ul>
+                 <li><a href="#">短袖衬衫</a>
+                     <ul>
+                         <li><a href="#">英伦风格</a></li>
+                         <li><a href="#">日韩风格</a></li>
+                         <li><a href="#">小清新</a></li>
+                         <li><a href="#">时尚元素</a></li>
+                     </ul>
+                 </li>
+                 <li><a href="#">长袖衬衫</a>
+                     <ul>
+                         <li><a href="#">英伦</a></li>
+                         <li><a href="#">日格</a></li>
+                         <li><a href="#">小清新</a></li>
+                         <li><a href="#">时尚</a></li>
+                     </ul>
+                 </li>
+                 <li><a href="#">短袖T衫</a>
+                     <ul>
+                         <li><a href="#">英伦风</a></li>
+                         <li><a href="#">日韩风</a></li>
+                         <li><a href="#">小清新</a></li>
+                         <li><a href="#">时尚</a></li>
+                     </ul>
+                 </li>
+                 <li><a href="#">长T衬衫</a></li>
+             </ul>
+         </li>
+         <li>
+             <a href="#">卫衣</a>
+             <ul>
+                 <li><a href="#">新款卫衣</a></li>
+                 <li><a href="#">时尚卫衣</a></li>
+                 <li><a href="#">薄款卫衣</a></li>
+                 <li><a href="#">秋冬卫衣</a></li>
+             </ul>
+         </li>
+         <li>
+             <a href="#">裤子</a>
+             <ul>
+                 <li><a href="#">长裤子</a>
+                     <ul>
+                         <li><a href="#">英伦风格</a></li>
+                         <li><a href="#">日韩风格</a></li>
+                         <li><a href="#">小清新</a></li>
+                         <li><a href="#">时尚元素</a></li>
+                     </ul>
+                 </li>
+                 <li><a href="#">短裤子</a>
+                     <ul>
+                         <li><a href="#">英伦</a></li>
+                         <li><a href="#">日格</a></li>
+                         <li><a href="#">小清新</a></li>
+                         <li><a href="#">时尚</a></li>
+                     </ul>
+                 </li>
+                 <li><a href="#">裤子裤子</a></li>
+                 <li><a href="#">花边裤子</a></li>
+             </ul>
+         </li>
+     </ul>
+</div>
+</body>
+</html>

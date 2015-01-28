@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .m-player-wrap {
+        margin:40px;
+        margin-left:0;
+        width: 550px;
+        height: 470px;
+        background-color:#000;
+        position:relative;
+    }
+    .info-wrap {
+        width: 570px;
+        height: 95px;
+        position:absolute;
+        bottom:-95px;
+        left:-2px;
+        border-radius: 0 5px 5px;
+        background-color:#3d3c3c;
+        opacity:0.9;
+    }
+    .m-lyric {
+        width: 250px;
+        height: 95px;
+        background-color: #fff;
+        border-radius:5px;
+        position:absolute;
+        right:-253px;
+        top:0px;
+        border:1px solid #000;
+    }
+    .m-list {
+        width: 549px;
+        height: 420px;
+        position: absolute;
+        bottom: 0;
+        background-color:#1a1919;
+    }
+    .list-table {
+        width: 162px;
+        height: 162px;
+        border:1px solid #808080;
+        float:left;
+        margin:10px;
+        margin-right:5px;
+        margin-bottom:30px;
+    }
+    #listTable1 {
+        background: url(images/audio.gif) no-repeat -12px -74px;
+    }
+    #listTable2 {
+        background: url(images/audio.gif) no-repeat -187px -74px;
+    }
+    #listTable3 {
+        background: url(images/audio.gif) no-repeat -12px -274px;
+    }
+    #listTable4 {
+        background: url(images/audio.gif) no-repeat -187px -279px;
+    }
+    .text {
+        width:550px;
+        height:240px;
+        position: absolute;
+        top: 229px;
+        left: 0px;
+    }
+    .text span{
+        display:block;
+        height:20px;
+        line-height:20px;
+        background-color: #0d0d0d;
+        color:#a4a1a1;
+        border-radius:10px;
+    }
+    .l-wrap {
+        width: 521px;
+        height: 80px;
+        background-color:#0d0d0d;
+        opacity:0.9;
+        padding:15px 15px 0;             
+    }
+    .album-front-cover {
+        width: 65px;
+        height: 65px;
+        display:block;
+        float:left;
+    }
+    .l-wrap dl {
+        width:106px;
+        height:46px;
+        font-size:14px;
+        font-weight:bold;
+        color:#e5dcdc;
+        float:left;
+        margin-left:5px;   
+    }
+    .l-wrap dl dd {
+        color: #808080;
+        font-family:Calibri Cambria Arial;
+        font-size:12px;
+        font-weight:normal;
+        height: 15px;
+        padding:3px;
+        padding-left:0;
+    }
+    .m-function {
+        width: 105px;
+        height:14px;
+        position:absolute;
+        top:65px;
+        left:85px;
+    }
+    .album-lists {
+        width:17px;
+        height:14px;
+        display:inline-block;
+        background-image: url(images/list.png);
+    }
+    .lyric {
+        width:17px;
+        height:14px;
+        display:inline-block;
+        background-image: url(images/lyric.png);
+    }
+    .m-player-switch {
+        width: 20px;
+        height: 95px;
+        border-radius: 0 5px 5px 0;
+        position:absolute;
+        right:0;
+        top:0;
+        background-color:#3d3c3c;
+    }
+    .m-player-switch a {
+        width: 15px;
+        height: 95px;
+        line-height: 95px;
+        font: 20px;
+        font-weight: bold;
+        color: #fff;
+        text-decoration:none;
+        text-align:center;
+        }     
+</style>
+</head>
+<body>
+    <!--播放器制作开始-->
+<div id="musicPlaerWrap" class="m-player-wrap">
+    <div id="musicPlayer" class="m-player">
+        <div id="musicInfo" class="m-info">
+            <div id="musicList" class="m-list">
+                <div id="listTable1" class="list-table"></div>
+                <div id="listTable2" class="list-table"></div>
+                <div id="listTable3" class="list-table"></div>
+                <div id="listTable4" class="list-table"></div>
+            </div>
+            <div class="text">
+                <span style="position:absolute;top:5px;left:30px;padding:0px 5px;">Missy Higgins</span>
+                <span style="position:absolute;top:5px;left:238px; padding:0px 5px;">I Am me</span>
+                <span style="position:absolute;top:5px;left:360px;padding:0px 5px;">The Dark Knight Rises</span>
+                <span style="position:absolute;top:208px; left:43px; padding:0px 5px;">Glass Cloud</span>
+            </div>
+        
+        </div>       
+        <div id="infoWrap" class="info-wrap">
+            <div id="leftWrap" class="l-wrap">
+                <img src="images/album.png" alt="" id="albumFrontCover" class="album-front-cover" />
+                <dl>
+                    <dt id="musicName" title="FeelPlayer">FeelPlayer</dt>
+                    <dd id="musicSinger" title="播放最爱的音乐">播放最爱的音乐</dd>
+                    <dd id="albumName" title=""></dd>
+                </dl>
+                <div id="musicFunction" class="m-function">
+                    <a href="javascript:void(0);" id="albumLists" class="album-lists" title="打开专辑列表"></a>
+                    <a href="javascript:void(0);" id="lyrics" class="lyric" title="打开歌词"></a>
+                    <!-- <a href="javascript:void(0);" id="favorites" class="favorites" title="打开收藏夹"></a> -->
+                </div>
+            </div>
+            <div id="broadcastControl" class="broadcast-control>
+                <embed src="mp3地址" autostart="1"  loop=-1 type="application/x-mplayer2" width="350" height="75"></embed>
+            </div>
+            <div id="musicPlayerSwitch" class="m-player-switch on" title="打开播放器">
+                <a href="javascript:void(0);" id="playerSwitchBtn" class="switch-on"><pre> < </pre></a>
+            </div>
+            <div id="musicLyric" class="m-lyric">
+            我是歌词O(∩_∩)O
+            </div>
+       </div>    
+            
+    </div>       
+</div>
+    <!--播放器制作结束-->
+</body>
+</html>

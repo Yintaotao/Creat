@@ -1,0 +1,76 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>select</title>
+</head>
+
+<body>
+<p>select-optgroup:选项分组</p>
+<h2>Where do you live?</h2>
+<hr />
+<form>
+<select name=state>
+ <optgroup label=Northeast>
+  <option>Maine</option>
+  <option>New Hampshire</option>
+  <option>Autland</option>
+ </optgroup>
+ <optgroup label=South>
+  <option>Georgia</option>
+  <option>Florida</option>
+ </optgroup>
+</select>
+<br />
+<hr />
+<br />
+<p>select-option:控制表单控件中的每个条目。纯文本，无装饰</p>
+<h2>What pets do you have?</h2>
+<br />
+<select name="pets" size="2" multiple="multiple">
+<option>Dog</option>
+<option>Cat</option>
+<option>Bird</option>
+<option selected=selected>rabbit</option>
+<option>Fish</option>
+<option value=Fish>Fish</option></select>
+<br />
+<hr />
+<br />
+<p>select-disabled:禁用某个表单控件(指定readonly属性与文本相关的&lt;ipput&gt;或&lt;textarea&gt;表单控件 也不能被用户修改)
+</p>
+<h2>What did you see?</h2>
+Name:
+ <input type=text name=name size=32 maxlength=80 readonly>
+<p>
+Sex:
+<input type=radio name=sex value="M" disabled>Male
+<input type=radio name=sex value="F" accesskey="z">Female
+</p>
+<p>
+Income:
+ <select name=income size=1 disabled>
+  <option>Under $25,000</option>
+  <option>$25,001 to $50,000</option>
+  <option>$50,001 and higher</option>
+</select>
+</p>
+<p>
+ <input type=submit disabled>
+</p>
+<br />
+<hr />
+<br />
+<p>fieldset-->lengend:包含几个个别标记的表单元素的字段集和图标符号</p>
+<fieldset>
+ <legend>Personal information</legend>
+ <label>Name:<input type="text" /><label><br />
+ <label>Address:<input type="text" /></label><br />
+ <label>Phone:<input type="text" /></label><br />
+</fieldset>
+
+</form>
+</body>
+</html>
+
+

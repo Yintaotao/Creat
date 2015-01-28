@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>表格应用</title>
+<script src="jquery-2.1.1.min.js" type="text/javascript"></script> 
+<style type="text/css">
+* {
+	margin:0px;
+	padding:0px;
+}
+body {
+	margin:30px auto;
+	font:14px "Comic Sans MS", cursive;
+}
+table{
+	margin:0px auto;
+	padding:3px;
+	border-spacing:0px;
+	border:1px solid #099;
+}
+th {
+	height:25px;
+	border:0px;
+	border-bottom:1px solid #666;
+}
+td {
+	width:100px;
+	height:25px;
+	text-align:center;
+	}
+.a .even, .b .even {background:#FC9;} /*偶数行样式*/
+.a .odd, .b .odd {background:#FFF;}  /*奇数行样式*/
+.selected {
+	background:#333;
+	color:#fd0111;
+	}
+</style>
+<script type="text/javascript">
+//单选框各行显示，并控制高亮显示
+$(function(){
+	$("tbody>tr:odd").addClass("odd");//给tbody中的奇数行添加样式
+	$("tbody>tr:even").addClass("even");//$("tr:even")中索引是从0开始的，因此第一行是偶数
+	$('.a tbody>tr').click(function() {
+        $(this).addClass('selected')//给点击的当前行添加高亮样式
+				.siblings().removeClass('selected')//将他的兄弟行的高亮样式去掉（使用了siblings().removeClass('selected')操作，对象变成了$(this).siblings()）
+				.end()//返回到$(this)对象
+				.find(':radio').attr('checked',true)
+				.end()
+				.siblings().find(':radio').attr('checked',false)
+				;
+    });
+
+})
+//复选框各行显示，并控制高亮显示
+$(function(){//可以选择多行变色
+	$('.b tbody>tr').click(function() {
+        if($(this).hasClass('selected')){//单击某行时，若已经高亮了
+			$(this).removeClass('selected')//则移除高亮样式
+			.find(':checkbox').attr('checked',false);//并去掉当前行复选框的选中状态
+		}else{//若还没高亮，则添加高亮样式并将当前行的复选框选中
+			$(this).addClass('selected')
+					.find(':checkbox').attr('checked',true);
+			}
+			//以上也可以用三元运算符完成
+			//var hasSelected = $(this).hasClass('selected');
+			//$(this)[hasSelected ? "removeClass" : "addClass"]('selected')
+			//.find(':checkbox').attr('checked',!hasSelected);
+    });
+})
+
+//表格的展开关闭+表格内容筛选
+//表格的展开关闭
+$(function(){//需要做的是单击当前分类时，可以关闭相应的内容，如单击“前台设计组”行，则对应的“张山，李四”两行收缩
+	$('tr.parent').click(function() {					//获取所谓父行
+        $(this).toggleClass('selected')					//添加/删除高亮
+				.siblings('.child_'+this.id).toggle();//隐藏/显示所谓的子行
+    });
+	})
+//表格内容筛选
+/*
+$(function(){//筛选出含有文本"李"的表格
+	$('.c tbody tr').hide()
+					.filter(":contains('李')").show();
+	})
+*/
+$(function(){
+	$('#filterName').keyup(function() {
+        $('.c tbody tr').hide()
+						.filter(":contains('"+($(this).val())+"')").show();
+    }).keyup();//DOM加载完时，绑定事件完成之后立即触发
+	})
+</script>
+</head>
+
+<body>
+<p>在制作数据列表时，用表格显示非常合适<br />
+下面介绍几个常用应用：<br /><br /><hr />
+1.单选框各行显示，并控制高亮显示
+</p><br />
+<table class="a">
+	<thead>
+    	<tr><th></th><th>姓名</th><th>性别</th><th>暂住地</th></tr>
+    </thead>
+    <tbody>
+    	<tr><td><input type="radio" /></td><td>张山</td><td>男</td><td>浙江宁波</td></tr>
+        <tr><td><input type="radio" /></td><td>李四</td><td>女</td><td>浙江杭州</td></tr>
+        <tr><td><input type="radio" /></td><td>王五</td><td>男</td><td>湖南长沙</td></tr>
+        <tr><td><input type="radio" /></td><td>赵六</td><td>男</td><td>浙江温州</td></tr>
+        <tr><td><input type="radio" /></td><td>孙军</td><td>男</td><td>浙江杭州</td></tr>
+        <tr><td><input type="radio" /></td><td>钱军</td><td>女</td><td>浙江杭州</td></tr>
+        <tr><td><input type="radio" /></td><td>Rain</td><td>男</td><td>浙江富阳</td></tr>
+    </tbody>
+</table>
+
+<p><br /><br />2.复选框各行显示，并控制高亮显示</p><br />
+<table class="b">
+	<thead>
+    	<tr><th></th><th>姓名</th><th>性别</th><th>暂住地</th></tr>
+    </thead>
+    <tbody>
+    	<tr><td><input type="checkbox" /></td><td>张山</td><td>男</td><td>浙江宁波</td></tr>
+        <tr><td><input type="checkbox" /></td><td>李四</td><td>女</td><td>浙江杭州</td></tr>
+        <tr><td><input type="checkbox" /></td><td>王五</td><td>男</td><td>湖南长沙</td></tr>
+        <tr><td><input type="checkbox" /></td><td>赵六</td><td>男</td><td>浙江温州</td></tr>
+        <tr><td><input type="checkbox" /></td><td>孙军</td><td>男</td><td>浙江杭州</td></tr>
+        <tr><td><input type="checkbox" /></td><td>钱军</td><td>女</td><td>浙江杭州</td></tr>
+        <tr><td><input type="checkbox" /></td><td>Rain</td><td>男</td><td>浙江富阳</td></tr>
+    </tbody>
+</table>
+
+<p><br /><br />3.表格展开关闭</p><br />
+<table class="c">
+	<thead>
+    <tr><th colspan="2"><label>筛选：</label><input type="text" id="filterName" /></th></tr>
+    	<tr><th>姓名</th><th>性别</th><th>暂住地</th></tr>
+    </thead>
+    <tbody>
+    	<tr class="parent" id="row_01" bgcolor="#009966"><td colspan="3" style="text-align:left">前台设计组</td></tr>
+        <tr class="child_row_01"><td>张山</td><td>男</td><td>浙江宁波</td></tr>
+        <tr class="child_row_01"><td>李四</td><td>女</td><td>浙江杭州</td></tr>
+        
+        <tr class="parent" id="row_02" bgcolor="#009966"><td colspan="3" style="text-align:left">前台开发组</td></tr>
+        <tr class="child_row_02"><td>王五</td><td>男</td><td>湖南长沙</td></tr>
+        <tr class="child_row_02"><td>赵六</td><td>男</td><td>浙江温州</td></tr>
+        
+        <tr class="parent" id="row_03" bgcolor="#009966"><td colspan="3" style="text-align:left">后台开发组</td></tr>
+        <tr class="child_row_03"><td>孙军</td><td>男</td><td>浙江杭州</td></tr>
+        <tr class="child_row_03"><td>钱军</td><td>女</td><td>浙江杭州</td></tr>
+        <tr class="child_row_03"><td>李军</td><td>男</td><td>浙江杭州</td></tr>
+        <tr class="child_row_03"><td>Rain</td><td>男</td><td>浙江富阳</td></tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style>
+* { font-size:90%;}
+font { color:#0000CC;}
+</style>
+</head>
+<body>
+	<font>下面的细线表格是用cellspacing来实现的，用表格的背景色做为边框的颜色。</font>不方便的是每一行都要再设置一个背景色。
+<table width="400" border="0" cellspacing="1" cellpadding="0"
+ bgcolor="#000000">
+  <tr bgcolor="#006600">
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<br />
+< font>下面的细线表格是设置bordercolordark来实现的</font>，因为默认的border其实宽度是2，即使设置为1也没用，bordercolorlight和bordercolordark一起作为表格的边框。所以设置其中一个为背景色，表格边框看起来就会细一些。
+<table width="400" border="1" cellspacing="0" cellpadding="0" 
+bordercolor="#000000" bordercolordark="#FFFFFF">
+  <tr bgcolor="#006600">
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<br />
+<font>下面的表格是用css来实现的。</font><br />
+css技巧比较多，列举几种：
+A：设置border="1"、bordercolor，再加上style="border-collapse:collapse;"。style里面的内容就是css。
+<table width="400" border="1" bordercolor="#000000" cellspacing="0"
+ cellpadding="0" style="border-collapse:collapse;">
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<br />
+B：这个用css来设置边框，结果只显示表格的最外层边线。里面的线不显示。
+<table width="400" cellspacing="0" cellpadding="0" 
+style="border:#000000 1px solid;">
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<br />
+C: 如果你想要页面的所有表格都是细线表格，也不用一个一个去设置。因为这里是演示用，所以加上了id，你用的时候直接
+ 在head里面加上style标签，里面写 table {border-collapse:collapse;} td {border:#000000 1px solid;}，所有该页的table就都是细线了。
+<style>
+#tab1 {border-collapse:collapse;}
+#tab1 td {border:#000000 1px solid;}
+</style>
+<table id="tab1" width="400">
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<br />
+<br />
+
+<font>表格边框控制的其他方法(rules和frame)：</font><br />说明：<br />
+1、这两个属性有时候设置会看不到作用，这是因为与表格边框的css设置冲突。所以说如果需要这些效果，并且还需要细线，那就用下面的方式来实现即设置这三个属性，border="1" bordercolor="#000000" style="border-collapse:collapse;"，然后再设置rules和frame，如果你测试到有其他的方法，希望能发布出来和大家共享。<br />
+2、下面的效果只是我列举出来做演示用的，灵活设置这些属性可以做出更多效果。<br />
+ rules="cols"的效果（中间的横线没有了）
+<table width="400" border="1" bordercolor="#000000" 
+style="border-collapse:collapse;" rules="cols">
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<br />
+frame="void"的效果（外边线没有了）
+<table width="400" border="1" bordercolor="#000000" 
+style="border-collapse:collapse;" frame="void">
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<br />
+rules和frame结合的效果(frame="hsides" rules="rows"，只留下横线)
+<table width="400" border="1" bordercolor="#000000" 
+style="border-collapse:collapse;" frame="hsides" rules="rows">
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+ 
+</body>
+</html>

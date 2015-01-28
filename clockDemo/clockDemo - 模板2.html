@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>动态时钟</title>
+	<script type="text/javascript">
+	    window.onload = function () {
+	        // body...
+	        clock();//绘制闹钟
+	        setInterval(clock, 1000);//每一秒重新刷新一次
+	    }
+
+	    //闹钟函数开始
+	    function clock() {
+	        //获取当前时间
+	        var now = new Date();
+	        var sec = now.getSeconds();
+	        var min = now.getMinutes();
+	        var hr = now.getHours();
+	        hr = hr >= 12 ? hr - 12 : hr;
+
+	        //获取canvas绘图区域
+	        var cxt = document.getElementById('canvas').getContext('2d');
+
+	        cxt.save();//保存状态，将当前状态压进栈
+	        ////初始化绘图canvas，设置参数
+	        cxt.clearRect(0, 0, 150, 150);
+	        cxt.strokeStyle = "black";
+	        cxt.fillStyle = "black";
+	        cxt.lineWidth = 7;
+	        cxt.lineCap = "round";//返回线条末端线帽的样式为圆形帽式
+	        cxt.translate(75, 75);//将原点移到75，75处
+	        cxt.scale(0.5, 0.5);//所有出度缩小0.4
+	        cxt.rotate(-Math.PI / 2);//将指针指向12点
+	        cxt.save();//保存状态，将当前状态压进栈
+	        //小时刻度
+	        cxt.beginPath();
+	        for (var i = 0; i < 12; i++) {
+	            cxt.rotate(Math.PI / 6);//旋转30°
+	            cxt.moveTo(100, 0);//将游标往外侧移动
+	            cxt.lineTo(120, 0);//绘制长20的线
+	        }
+	        cxt.stroke();//画出这条路线
+	        cxt.restore();//出栈，将取出的状态作为当前状态
+	        cxt.save();//将状态压入栈，保存
+	        //分钟刻度
+	        cxt.beginPath();
+	        cxt.lineWidth = 5;
+	        for (var i = 0 ; i < 60; i++) {
+	            if (i % 5 != 0) {
+	                cxt.moveTo(117, 0);
+	                cxt.lineTo(120, 0);
+	            }
+	            cxt.rotate(Math.PI / 30);
+	        }
+	        cxt.stroke();
+	        cxt.restore();
+
+	        //绘制时针
+	        cxt.save();
+	        cxt.rotate((Math.PI / 6) * hr + (Math.PI / 360) * min + (Math.PI / 21600) * sec);
+	        cxt.beginPath();
+	        cxt.lineWidth = 14;
+	        cxt.moveTo(-20, 0);
+	        cxt.lineTo(80, 0);
+	        cxt.stroke();
+	        cxt.restore();
+	        //绘制分针
+	        cxt.save();
+	        cxt.rotate((Math.PI / 30) * min + (Math.PI / 1800) * sec);
+	        cxt.beginPath();
+	        cxt.lineWidth = 10;
+	        cxt.moveTo(-28, 0);
+	        cxt.lineTo(105, 0);
+	        cxt.stroke();
+	        cxt.restore();
+	        //绘制秒针
+	        cxt.save();
+	        cxt.rotate((Math.PI / 30) * sec);
+	        cxt.beginPath();
+	        cxt.fillStyle = "#D40000";
+	        cxt.strokeStyle = '#D40000';
+	        cxt.lineWidth = 6;
+	        cxt.moveTo(-30, 0);
+	        cxt.lineTo(83, 0);
+	        cxt.stroke();
+	        cxt.restore();
+	        //绘制外圈蓝圈
+	        cxt.save();
+	        cxt.lineWidth = 8;
+	        cxt.strokeStyle = '#ffaa00';
+	        cxt.beginPath();
+	        //绘制一个完整的圆圈，半径为142像素
+	        cxt.arc(0, 0, 142, 0, Math.PI * 2, true);//圆的中心的x,y坐标.起始角设置为 0，结束角设置为 2*Math.PI;False = 顺时针，true = 逆时针。
+	        cxt.stroke();
+	        cxt.restore();
+	        cxt.restore();
+	    }
+	</script>
+</head>
+<body>
+	<canvas id="canvas" height="150" width="150"></canvas>   
+</body>
+</html>

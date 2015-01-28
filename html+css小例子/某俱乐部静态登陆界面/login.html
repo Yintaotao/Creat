@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+*{margin:0px; padding:0px;}
+<!--body{background:url("http://www.baby925.com/dede/templets/images/bg.jpg") no-repeat top center #1a0202;}-->
+body{background:url("images/bg.jpg") no-repeat top center #1a0202;}
+#Login{width:380px; height:270px; margin:250px auto 0px;}
+#Login #Lg{padding:90px 0px 0px 30px;}
+#Login #Lg p{color:#FFF;font-size:14px; font-family:"微软雅黑"; height:35px;}
+#Login #Lg p input{height:22px; width:170px; background:#808080;
+border:1px solid #1f1a21;}
+
+
+#Login #Lg p input.yzm{width:60px;}
+#Login #Lg p a{color:#666; text-decoration:none;}
+#Login #Lg p a:hover{text-decoration:underline;}
+<!--#Login #Lg p.but input{width:96px;height:25px; background:url("http://www.baby925.com/dede/templets/images/Lg.jpg");border:0px;}-->
+#Login #Lg p.but input{width:96px;height:25px; background:url("http://www.baby925.com/dede/templets/images/Lg.jpg");
+border:0px;}
+#Login #Lg p.but{ padding:10px 0px 0px 70px;}
+
+
+</style>
+</head>
+
+
+
+<body>
+
+<div id="Login">
+	<div id="Lg">
+		<form name="form1" method="post" action="login.php">
+		<input type="hidden" name="gotopage" value="/dede/" />
+		<input type="hidden" name="dopost" value="login" />
+		<input name='adminstyle' type='hidden' value='newdedecms' />
+
+		<p>用户名：<input type="text" name="userid" /></p>
+		<p>密　码：<input type="password" name="pwd"/></p>
+		<p>验证码：<input type="text" class="yzm" id="vdcode" name="validate"/>
+		<img id="vdimgck" align="absmiddle" onClick="this.src=this.src+'?'" style="cursor: pointer;" alt="看不清？点击更换" src="../include/vdimgck.php"/>
+<a href="#" onClick="changeAuthCode();">看不清？</a></p>
+		<p class="but"><input type="submit"  value="" name="sm1" onclick="this.form.submit();"/></p>
+		</form>
+		
+	</div>
+</div>
+
+</body>
+</html>

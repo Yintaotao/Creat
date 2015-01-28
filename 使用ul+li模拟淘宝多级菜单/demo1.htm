@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>多级菜单</title>
+<style type="text/css">
+.menu {
+    font-family: arial, sans-serif;
+    width:440px;
+    margin:0;
+}
+.menu ul {
+    padding:0;
+    margin:0;
+    list-style-type: none;
+}
+.menu ul li {
+    float:left;               /* 列表横向显示*/
+    position:relative;
+}
+.menu ul li a, .menu ul li a:visited {
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    width:104px;
+    height:30px;
+    color:#000;
+    border:1px solid #fff;
+    border-width:1px 1px 0 0;
+    background:#5678ee;
+    line-height:30px;
+    font-size:14px;
+}
+.menu ul li ul {
+    display: none;
+}
+.menu ul li:hover a {
+    color:#fff;
+}
+.menu ul li:hover ul {
+    display:block;
+    position:absolute;
+    top:31px;
+    left:0;
+    width:105px;
+}
+.menu ul li:hover ul li a {
+    display:block;
+    background:#ff4321;
+    color:#000;
+}
+.menu ul li:hover ul li a:hover {
+    background:#dfc184;
+    color:#000;
+}
+</style>
+</head>
+<body>
+<div class="menu">
+    <ul>
+        <li><a href="#">DEMOS</a>
+            <ul>
+                <li><a href="#">1级</a></li>
+                <li><a href="#">2级</a></li>
+                <li><a href="#">3级</a></li>
+            </ul>
+        </li>
+        <li><a href="#">MENUS</a>
+            <ul>
+                <li><a href="#">1级</a></li>
+                <li><a href="#">2级</a></li>
+                <li><a href="#">3级</a></li>
+            </ul>
+        </li>
+        <li><a href="#">LAYOUTS</a>
+            <ul>
+                <li><a href="#">1级</a></li>
+                <li><a href="#">2级</a></li>
+                
+            </ul>
+        </li>
+        <li><a href="#">BOXES</a>
+            <ul>
+               <li><a href="#">1级</a></li>
+                <li><a href="#">2级</a></li>
+                <li><a href="#">3级</a></li>>
+            </ul>
+        </li>
+    </ul>
+    <div class="clear"></div>
+</div>
+</body>
+</html>

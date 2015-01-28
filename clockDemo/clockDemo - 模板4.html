@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canva  Clock Demo</title>
+	<script>
+	//使用canvasAPI来挥之一个活动时钟
+		window.onload = function(){
+			clock();//绘制时钟
+			setInterval(clock,1000);//此后每秒重绘一次时钟
+		};
+		function clock(){
+			//获取当前日期和时间
+			var now = new Date();
+			var sec = now.getSeconds();
+			var min = now.getMinutes();
+			var hr = now.getHours();
+			hr = hr >= 12 ? hr - 12 : hr;
+
+			//获得<canvas>元素的绘图区域
+			var ctx = document.getElementById('canvas').getContext('2d');//getContext()返回一个用于在画布上绘图的环境。getContext("2d") 对象是内建的 HTML5 对象，拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。
+			
+			ctx.save();//保存与恢复canvas状态ctx.save();暂时将当前的状态保存到堆中
+
+				//初始化绘图canvas
+				ctx.clearRect(0,0,150,150); //clearRect()清空给定矩形内的指定像素。
+											/*
+											fillRect() 方法绘制“已填色”的矩形。默认的填充颜色是黑色。
+											x	矩形左上角的 x 坐标
+											y	矩形左上角的 y 坐标
+											width	矩形的宽度，以像素计
+											height	矩形的高度，以像素计
+											*/
+				
+				ctx.translate(75,75);//将原点移动到75，,75				
+				ctx.scale(0.4,0.4);//是所有操作的效果缩小为0.4倍
+				//让指针开始指向 12：:0
+				ctx.rotate(-Math.PI/2);//rotate() 方法旋转当前的绘图
+
+				//初始化绘图属性
+				ctx.strokeStyle = "black";//strokeStyle 属性设置或返回用于笔触的颜色、渐变或模式。
+				ctx.fillStyle = "black";//渲染颜色
+				ctx.lineWidth = 8;
+				ctx.lineCap = "round";
+		        //lineCap 属性设置或返回线条末端线帽的样式。
+		        //butt: 默认。向线条的每个末端添加平直的边缘。
+		        //round: 向线条的每个末端添加圆形线帽。
+			    //square: 向线条的每个末端添加正方形线帽。
+
+			    //小时刻度
+			    ctx.save();
+				    ctx.beginPath();
+				    //每小时一个
+				    for(var i = 0 ; i < 12 ; i++){
+					    //将canvas旋转一周的1/12
+					    //一周 = 2*PI
+				        ctx.rotate(Math.PI / 6);//语法context.rotate(angle);rotate()方法旋转当前的绘图。
+
+					    //将游标往canvas外侧移动一些
+					    ctx.moveTo(100,0);
+					    //绘制长20px线
+					    ctx.lineTo(120,0);
+				    }
+				    ctx.stroke();//stroke() 方法会实际地绘制出通过 moveTo() 和 lineTo() 方法定义的路径。默认颜色是黑色。
+			    ctx.restore();//该方法用于将上一个保存的状态从堆中再次取出，恢复该状态的所有设置。
+
+			    //分钟刻度
+			    ctx.save();
+				    //这些刻度要比小时刻度更细
+				    ctx.lineWidth = 5;
+				    ctx.beginPath();
+				    //每一分钟
+				    for(var i = 0; i < 60; i ++){
+					    //除去那些整点上的分钟
+					    if(i%5 != 0){
+						    //将游标移远一些
+						    ctx.moveTo(117,0);
+
+						    //绘制短3px线
+						    ctx.lineTo(120,0);
+					    }
+					    //将canvas再旋转1/60圆周
+					    ctx.rotate(Math.PI/30);
+				    }
+				    ctx.stroke();//stroke是一个统一的全局函数,不用每次都stroke,会把stroke前门的命令一起执行,stroke必须在画完图后放一个
+
+			    ctx.restore();
+		
+			    //绘制时针
+			    ctx.save();
+				    //将canvas旋转正确方向
+				    ctx.rotate((Math.PI/6) * hr +(Math.PI/360) * min + (Math.PI/21600) * sec);
+				    //将canvas旋转到正确方向
+				    ctx.lineWidth = 14;
+				    //这根线段必须足够粗
+				    ctx.lineWidth = 14;
+
+				    ctx.beginPath();
+					    //将时针开头处移动到稍稍偏离离中心的位置（使之更真实）
+					    ctx.moveTo(-20,0);
+
+					    //在小时刻度附近绘制
+					    ctx.lineTo(80,0);
+				    ctx.stroke();
+			    ctx.restore();
+
+			    //绘制分针
+			    ctx.save();
+				    //将canvas绘制到当前的分钟位置
+				    ctx.rotate((Math.PI/30) * min + (Math.PI/1800) * sec);
+				    //这根线比时钟更细
+				    ctx.lineWidth = 10;
+				    ctx.beginPath();
+					    //但分针要更长一点，所以要更偏离中心一点
+					    ctx.moveTo(-28,0);
+
+					    //将其绘制得长一些
+					    ctx.lineTo(112,0);
+				    ctx.stroke();
+			    ctx.restore();
+
+			    //绘制秒针
+			    ctx.save();
+				    //将canvas旋转到当前的秒针位置
+				    ctx.rotate(sec * Math.PI/30);
+
+				    //这根线段是接近红色的
+				    ctx.strokeStyle = "#D40000";
+				    ctx.fillStyle = "#D40000";
+
+				    //这根线段比其他指针都细
+				    ctx.lineWidth = 6;
+				    ctx.beginPath();
+					    //而且起始点要偏离中心更远
+					    ctx.moveTo(-30,0);
+
+					    //但更短
+					    ctx.lineTo(83,0);
+				    ctx.stroke();
+			    ctx.restore();
+
+			    //绘制外侧蓝色圆圈
+			    ctx.save();
+				    //边框必须足够粗
+				    ctx.lineWidth = 14;
+
+				    //蓝色
+				    ctx.strokeStyle = '#325FA2';
+
+				    ctx.beginPath();
+					    //绘制一个完整的圆圈，半径为142像素
+					    ctx.arc(0,0,142,0,Math.PI*2,true);
+				    ctx.stroke();
+				 ctx.restore();
+			ctx.restore();
+		}
+	</script>
+</head>
+<body>
+	<canvas id="canvas" height="150" width="150"></canvas>
+</body>
+</html>

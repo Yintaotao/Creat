@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8"/>
+ <title>太阳系简易模拟</title>
+ <style type="text/css">
+  body{background:#020722;}canvas{margin:0 auto;display:block;background:#020722;}
+ </style>
+</head>
+<body>
+<canvas id="canvas" width="600" height="600"></canvas>
+<script type="text/javascript">
+    var cxt = document.getElementById('canvas').getContext('2d');
+    
+    //画四条轨道 drawTrack()
+    function drawTrack() {
+        for (var i = 0; i < 4; i++) {
+            cxt.beginPath();
+            cxt.arc(300, 300, (i + 1) * 70, 0, 360, false);
+            cxt.closePath();
+            cxt.strokeStyle = "gray";
+            cxt.stroke();
+        }
+    }
+
+    //画球 www.111cn.net
+    var time = 0;
+    //星球方法
+    function Star(x, y, r, sColor, eColor, cycle) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.sColor = sColor;
+        this.eColor = eColor;
+        this.cycle = cycle;
+        this.draw = function () {
+            cxt.save();
+            cxt.translate(300, 300);
+            cxt.rotate(time * 360 / this.cycle * Math.PI / 180);
+            cxt.beginPath();
+            cxt.arc(this.x, this.y, this.r, 0, 360, false);
+            cxt.closePath();
+            var color = cxt.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);//createRadialGradient(xStart, yStart, radiusStart, xEnd, yEnd, radiusEnd)
+            color.addColorStop(0, sColor);
+            color.addColorStop(1, eColor);
+            cxt.fillStyle = color;
+            cxt.fill();
+            cxt.restore();
+            time++;
+        }
+    }
+    //-----------------------------------------------
+    function Sun() { //创建太阳构造方法
+        Star.call(this, 0, 0, 50, "#f00", "#f90", 0);
+    }
+    var sun = new Sun(); //创建太阳实例
+    //-----------------------------------------------
+    function Mercury() { //创建水星构造方法
+        Star.call(this, 0, -70, 10, "#A69697", "#5C3E40", 87.70);
+    }
+    var sx = new Mercury(); //创建水星实例
+    //-----------------------------------------------
+    function Venus() { //创建金星构造方法
+        Star.call(this, 0, -140, 30, "#C4BBAC", "#1F1315", 224.701);
+    }
+    var jx = new Venus(); //创建金星实例
+    //-----------------------------------------------
+    function Earth() { //创建地球构造方法
+        Star.call(this, 0, -210, 25, "#78B1E8", "#050C12", 365.2422);
+    }
+    var dq = new Earth(); //创建地球实例
+    //-----------------------------------------------
+    function Mars() { //创建火星构造方法
+        Star.call(this, 0, -280, 10, "#CEC9B6", "#76422D", 686.98);
+    }
+    var hx = new Mars(); //创建火星实例
+
+    //动起来
+    function move() {
+        cxt.clearRect(0, 0, 600, 600);
+        drawTrack();
+        sun.draw();
+        sx.draw();
+        jx.draw();
+        dq.draw();
+        hx.draw();
+    }
+    move();
+    setInterval("move()", 100);
+</script>
+</body>
+</html>
