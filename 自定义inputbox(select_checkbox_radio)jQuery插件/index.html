@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>自定义select、checkbox、radio</title>
+
+<link rel="stylesheet" href="jquery.inputbox.css" type="text/css" />
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.inputbox.js"></script>
+<script type="text/javascript">
+$(function(){
+
+	$('div[name="city"]').inputbox({
+		height:24,
+		width:100
+	});
+	
+	$('.cbt').inputbox();
+	
+	$('[name="rbt"], [name="rbt2"]').inputbox();
+
+});
+</script>
+</head>
+
+<body>
+
+<div style="height:50px;">
+	<div name="city" type="selectbox">
+		<div class="opts">
+			<a href="javascript:;" val="050101">苏州</a>
+			<a href="javascript:;" val="050102">常熟</a>
+			<a href="javascript:;" val="050103">无锡</a>
+			<a href="javascript:;" val="050103">太仓</a>
+			<a href="javascript:;" val="050103">常州</a>
+			<a href="javascript:;" val="050103">吴中</a>
+			<a href="javascript:;" val="050103">相城</a>
+			<a href="javascript:;" val="050103" class="selected">请选择城市</a>	
+		</div>
+	</div>
+	
+	<div name="city" type="selectbox">
+		<div class="opts">
+			<a href="javascript:;" val="050101">上海</a>
+			<a href="javascript:;" val="050102">北京</a>
+			<a href="javascript:;" val="050103">杭州</a>
+			<a href="javascript:;" val="050103">广州</a>
+			<a href="javascript:;" val="050103">海南</a>
+			<a href="javascript:;" val="050103">香港</a>
+			<a href="javascript:;" val="050103">台湾</a>
+			<a href="javascript:;" val="050103" class="selected">温州</a>	
+		</div>
+	</div>
+</div>
+
+<div style="height:50px;">
+	<div class="cbt all checked" name="checkAll" type="checkbox"></div>全选
+	<div class="cbt checked" name="check"  type="checkbox" val="2"></div>
+	<div class="cbt" name="check"  type="checkbox" val="3"></div>
+	<div class="cbt" name="check"  type="checkbox" val="4"></div>
+	<div class="cbt" name="check"  type="checkbox" val="5"></div>
+	<div class="cbt" name="check" type="checkbox" val="4"></div>
+	<div class="cbt" name="check" type="checkbox" val="5"></div>
+</div>
+
+<div name="rbt" type="radiobox" val="math" class="checked"></div>
+<div name="rbt" type="radiobox" val="cn" class="checked"></div>
+<div name="rbt" type="radiobox" val="en"></div>
+
+<div name="rbt2" type="radiobox" val="cn"></div>
+<div name="rbt2" type="radiobox" val="en"></div>
+
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>好玩的SVG</title>
+</head>
+
+<body>
+<!--SVG-小猫咪-->
+<svg width="140" height="170">
+        <title>Cat</title>
+        <desc>Stick Figure of a Cat</desc>
+        <circle cx="70" cy="95" r="50" style="stroke: black; fill: none;" />
+        <circle cx="55" cy="80" r="5" stroke="black" fill="#339933" />
+        <circle cx="85" cy="80" r="5" stroke="black" fill="#339933" />
+        <g id="whiskers">
+            <line x1="75" y1="95" x2="135" y2="85" style="stroke: black;" />
+            <line x1="75" y1="95" x2="135" y2="105" style="stroke: black;" />
+        </g>
+        <use xlink:href="#whiskers" transform="scale(-1 1) translate(-140 0)" />
+        <!-- ears -->
+        <polyline points="108 62, 90 10, 70 45, 50, 10, 32, 62"
+                  style="stroke: black; fill: none;" />
+        <!-- mouth -->
+        <polyline points="35 110, 45 120, 95 120, 105, 110"
+                  style="stroke: black; fill: none;" />
+        <!-- nose -->
+        <path d="M 75 90 L 65 90 A 5 10 0 0 0 75 90"
+              style="stroke: black; fill: #ffcccc" />
+    </svg>
+
+    <!---------------------------->
+    <!--SVG画实心箭头-->
+ <div id="box" style="width:100%;height:100%">
+        <!--<svg id="dragBox" style="width:100px;height:100px;background-color:#808080; position: absolute;">
+            <rect x="0" y="0" width="100" height="100" style="fill:#ff6a00"></rect>
+            <text x="0" y="80" style="font-size:10px;">elll</text>
+        </svg>
+        <svg id="dragBox" style="width:100px;height:100px;position:absolute;">
+            <polygon points="0,40 70,40 70,0 100,50 70,100 70,60 0,60 0,40" style="fill:#4cff00"></polygon>
+        </svg>
+        <img src="kiwi.svg" />-->
+        <!--<input type="text" onclick="a()" />-->
+    </div>
+
+    <script>
+    //此部分是属于控制SVG画实心箭头
+        function a() {
+            jscolor.init();
+        }
+    </script>
+    <script>
+
+        var createElementsvg;
+        (function (createElementsvg) {
+            function svgelement(name, props) {
+                this.name = name;
+                this.xmls = 'http://www.w3.org/2000/svg';
+                this.prop = props;
+            }
+            svgelement.CreateElement = function (name, props) {
+                var el = new svgelement(name, props);
+                if (el.prop) {
+                    svgelement.Addattribute(el, el.props)
+                }
+                return document.createElementNS(el.xmls, el.name)
+            }
+            svgelement.Addattribute = function (el, props) {
+                for (p in props) {
+                    if (typeof props[p] === 'object' && p.toLowerCase() === 'style') {
+                        var s = "";
+                        for (pp in props[p]) {
+                            s += pp + ":" + props[p][pp];
+                            s += ";"
+                        }
+                        el.setAttribute(p, s);
+                    }
+                    else {
+                        el.setAttribute(p, props[p]);
+                    }
+                }
+            }
+            createElementsvg.svg = svgelement;
+        })(createElementsvg || (createElementsvg = {}))
+
+
+        var svg = createElementsvg.svg.CreateElement('svg');
+        createElementsvg.svg.Addattribute(svg, { id: "dragBox", style: { "fill": "#4cff00", width: "100px", height: "100px", "position": "absolute" } })
+        var polygon = createElementsvg.svg.CreateElement('polygon');
+        createElementsvg.svg.Addattribute(polygon, { 'points': '0,40 70,40 70,0 100,50 70,100 70,60 0,60 0,40' })
+        svg.appendChild(polygon);
+        document.getElementById('box').appendChild(svg);
+
+        //var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        //polygon.setAttribute('points', '0,40 70,40 70,0 100,50 70,100 70,60 0,60 0,40');
+        //polygon.setAttribute('style', 'fill:#4cff00;');
+
+        //var svg = document.createElementNS('http://www.w3.org/2000/svg', "svg");
+        //svg.setAttribute('id', 'dragBox');
+        //svg.setAttribute('style', 'width:100px;height:100px;position:absolute;left:100px;top:100px;background:#ff0');
+        //svg.appendChild(polygon);
+
+        //document.getElementById("box").appendChild(svg);
+
+    </script>
+    <script type="text/javascript">
+        var VVG = {}; //命名空间
+        VVG.DOM = {
+            $: function (id) { //创建方便的选择符
+                return typeof id == "string" ? document.getElementById(id) : id;
+            },
+            bindEvent: function (node, type, func) { //事件绑定方法
+                if (node.addEventListener) {
+                    node.addEventListener(type, func, false);
+                } else if (node.attachEvent) {
+                    node.attachEvent("on" + type, func);
+                } else {
+                    node["on" + type] = func;
+                }
+            },
+            getEvent: function (event) { //获取事件
+                return event ? event : window.event;
+            },
+            getTarget: function (event) { //获取事件目标
+                return event.target || event.srcElement;
+            }
+        }
+        var DragDrop = function () { //新建一个返回对象的函数
+            var box = VVG.DOM.$("box"); //获取外围BOX
+            var dragBox = VVG.DOM.$("dragBox");//获取需要拖动的BOX
+            var dragging = null; //初始化对象
+            function drag(event) { //事件执行函数
+                event = VVG.DOM.getEvent(event);
+                var target = VVG.DOM.getTarget(event);
+                switch (event.type) {//判断事件类型
+                    case "mousedown":
+
+                        if (target.id) { //当事件对象的ID等于要拖动的BOX的ID时
+                            dragging = target; //赋值到拖动目标
+                        }
+                        else {
+                            dragging = target.parentNode;
+                            console.log(target);
+                            console.log(event);
+                        }
+                        break;
+                    case "mousemove":
+
+                        if (dragging) { //当有拖动目标时执行
+                            sTop = document.documentElement.scrollTop || document.body.scrollTop; //当有滚动条的时候卷去页面的高度
+                            dragging.style.left = (event.clientX - box.offsetLeft - dragBox.offsetWidth / 2) + "px";
+                            dragging.style.top = (event.clientY + sTop - box.offsetTop - dragBox.offsetHeight / 2) + "px";
+                            var left = parseInt(dragging.style.left);
+                            var top = parseInt(dragging.style.top);
+                            //console.log("left:"+left+"-----top:"+top + "-------sTop:"+sTop);
+                            // 比较坐标是否超出外围的BOX
+                            if (left < 0) {
+                                dragging.style.left = 0 + "px";
+                            }
+                            if (top < 0) {
+                                dragging.style.top = 0 + "px";
+                            }
+                            if (left > box.offsetWidth - dragBox.offsetWidth) {
+                                dragging.style.left = (box.offsetWidth - dragBox.offsetWidth - 2) + "px";
+                            }
+                            if (top > box.offsetHeight - dragBox.offsetHeight) {
+                                dragging.style.top = (box.offsetHeight - dragBox.offsetHeight - 2) + "px";
+                            }
+                        }
+                        break;
+                    case "mouseup":
+                        // 清空拖动目标
+                        dragging = null;
+                        break;
+                }
+            };
+            return {
+                dragStart: function () {
+                    // 绑定事件
+                    VVG.DOM.bindEvent(document, "mousedown", drag);
+                    VVG.DOM.bindEvent(document, "mousemove", drag);
+                    VVG.DOM.bindEvent(document, "mouseup", drag);
+                }
+            }
+        }();
+        DragDrop.dragStart();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>面向对象-漂浮广告</title>
+<style type="text/css">
+body{margin:0; padding:0}
+</style>
+<script type="text/javascript">
+
+//DOM载入完成时触发
+window.onload = function(){
+	
+	//模块类，选取节点
+	function MoveDiv(id){
+		
+		this.id = document.getElementById(id);		//漂浮的DIV
+		this.span = this.id.getElementsByTagName('span')[0];	//点击关闭的按钮
+		this.posX = this.id.offsetLeft;	//X轴的位置
+		this.posY = this.id.offsetTop;	//Y轴的位置
+		this.setH = document.documentElement.clientHeight;		//窗口高度
+		this.setW = document.documentElement.clientWidth;		//窗口宽度
+		
+	}
+	
+	//接口方法
+	MoveDiv.prototype.move = function(){
+		var _this = this;
+		_this.maxH = this.setH;		//预设最大高度
+		_this.maxW = this.setW;		//预设最大宽度
+		_this.winH = 0;		//Y轴滚动条滑动值
+		_this.winW = 0;		//X轴滚动条滑动值
+		_this.delay = 29;	//漂浮的速度
+		_this.limitedX = true;		//预设X轴正向
+		_this.limitedY = true;		//限定Y轴正向
+		
+		//漂浮DIV跟随可视窗口
+		window.onscroll = function(){
+			_this.maxH = _this.setH;
+			_this.maxW = _this.setW;
+			_this.winH = document.body.scrollTop || document.documentElement.scrollTop;
+			_this.winW = document.body.scrollLeft || document.documentElement.scrollLeft;
+			_this.maxH += _this.winH;
+			_this.maxW += _this.winW;
+		}
+		
+		//漂浮运动函数
+		function add(){
+			if( _this.posX + _this.winW <= _this.winW) {
+				_this.limitedX = true;
+				
+			}if( _this.posX + _this.winW >= _this.maxW - _this.id.clientWidth - 3) {
+				_this.limitedX = false;
+				
+			}if( _this.posY + _this.winH <= _this.winH){
+				_this.limitedY = true;
+			
+			}if( _this.posY + _this.winH >= _this.maxH - _this.id.clientHeight - 3){
+				_this.limitedY = false;
+			}
+		
+			if( _this.limitedX ){
+				_this.posX+=1;		//X轴正向运动
+				
+			}else {
+				_this.posX-=1;		//X轴反向运动
+			
+			}if( _this.limitedY ){
+				_this.posY+=1;		//Y轴正向运动
+				
+			}else {
+				_this.posY-=1;		//Y轴反向运动
+			}
+			
+			_this.id.style.left = _this.posX + _this.winW + 'px';
+			_this.id.style.top = _this.posY + _this.winH + 'px';
+		}
+		
+		//执行漂浮函数
+		this.repeat = setInterval(add,_this.delay);
+		
+		//鼠标悬停
+		this.id.onmouseover = function(){
+			clearInterval(_this.repeat);
+		}
+		this.id.onmouseout = function(){
+			_this.repeat = setInterval(add,_this.delay);
+		}
+		
+		//点击关闭
+		this.span.onclick = function(){
+			_this.id.style.display = 'none';
+			_this = null;		//销毁对象，阻止冒泡运动
+		}
+	}
+	
+	//实例化
+	var gomove = new MoveDiv('MoveFloat');
+	
+	//启动对象方法，开始漂浮
+	gomove.move();
+}
+</script>
+</head>
+<body>
+<div style="height:1500px; background:#eee"></div>
+<div id="MoveFloat" style="position:absolute; left:200px; top:300px; border:1px solid red;">
+	<img src="img.png" width="150px" height="100px" />
+	<span style="background:red; position:absolute; cursor:pointer; bottom:0px; right:0px;" title="点击关闭">关闭</span>
+</div>
+
+
+</body>
+</html>
