@@ -1,0 +1,11 @@
+{
+    "name": "ytt",
+    "age": "24",
+    "sex": "f",
+    "phone": " 13221556436",
+    "favorite": {
+        "color": "red",
+        "food": "fish",
+        "tv": "cartoon"
+    }
+}

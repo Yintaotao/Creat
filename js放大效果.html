@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	body{ margin:0; padding:0}  
+div{background:#CCCCCC; position:absolute}  
+#first{width:100px; height:150px}  
+#second{top:160px;width:100px;height:150px}  
+#third{ width:200px; height:310px; left:110px} 
+	</style>
+	
+</head>
+<body>
+<div id="first">A</div>     
+<div id="second">B</div>     
+<div id="third">C</div>
+<script type="text/javascript">
+	function zoom(id,x,y){ // 设置缩放函数参数：容器id、横向缩放倍数、纵向缩放倍数（等比例缩放时也可以设定一个参数）  
+var obj=document.getElementById(id); // 获取元素对象值  
+var dW=obj.clientWidth; // 获取元素宽度 ,obj.clientWidth 相当于obj的内容的宽度+padding,不包含border和margin，同obj.scrollWidth; 
+var dH=obj.clientHeight; // 获取元素高度  
+//var oTop=obj.offsetTop; //obj.offsetWidth 相当于obj的内容的宽度 + padding +border,不包含margin 
+//var oLeft=obj.offsetLeft;  
+obj.onmouseover=function(){ // 鼠标移入  
+this.style.width=dW*x+"px"; // 横向缩放  
+this.style.height=dH*y+"px"; // 纵向缩放  
+this.style.backgroundColor="red"; // 设置调试背景 
+this.style.zIndex=1; // 设置z轴优先  
+}  
+obj.onmouseout=function(){ // 鼠标移出，设回默认值  
+this.style.width="";  
+this.style.height="";  
+this.style.padding="";  
+this.style.backgroundColor="";  
+this.style.zIndex="";  
+}  
+}  
+zoom("first",1.25,1.25);  
+zoom("second",1.25,1.25);  
+zoom("third",1.25,1.25); 
+</script> 
+</body>
+</html>

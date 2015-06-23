@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+
+	</style>
+</head>
+<body>
+          
+<script type="text/javascript">
+
+    var isPalindrome = function (str) {
+
+        this.str = str;
+        var stopWords = /[\s\,\.\!\?\:\;\@\#\$\%\^\&\*\(\)\-\+\+\_\~\`\\'\\"\[\]\{\}\/\<\>\|\||\……\￥\\]/;//匹配字符，以便后面比较时跳过使用
+        var isPr = str.concat("___is a palindrome.");
+        var notPr = str.concat("___is not a palindrome.");
+        var i = 0, j = str.length - 1;
+        //考虑空字符串时的情况
+        if (/^[\s*]$/.test(str)) {
+            if (str.length === 1) return true;
+            else if (str.length % 2 === 0)
+                return isPr;
+                //return true;
+            else
+                return notPr;
+                //return false;
+        }
+        //非空字符串情况
+        while (i <= j) {
+            if (stopWords.test(str[i])) {//若i是stopWords里的符号时，跳过
+                i++;
+            }
+            if (stopWords.test(str[j])) {//若j是stopWords里的符号时，跳过
+                j--;
+            }
+            if (!stopWords.test(str[i]) && !stopWords.test(str[j])) {//进行比较
+                var str1, str2;
+                if (/[A-Z]/.test(str[i])) {//如果str[i]为大写字母，则转换成小写
+                    str1 = str[i].toLowerCase();
+                } else { str1 = str[i]; }
+
+                if (/[A-Z]/.test(str[j])) {//如果str[j]为大写字母，则转换成小写
+                    str2 = str[j].toLowerCase();
+                } else { str2 = str[j]; }
+
+                if (str1 === str2) {//转换后的字符进行比较
+                    i++;
+                    j--;
+                }else {break; }
+            }
+        }
+        if (i > j)
+            return isPr;
+            //return true;
+        else
+            return notPr;
+            //return false;
+    }
+</script>
+</body>
+</html>

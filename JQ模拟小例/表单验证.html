@@ -22,7 +22,7 @@ form {
 	font-size:xx-small;
 	color:#F00;
 }
-div {
+div.int {
 	margin:5px;
 	margin-left:0px;
 	display:block;
@@ -101,7 +101,7 @@ $(function(){
 	       }).blur(function(){ //地址框失去鼠标焦点
 		   	var $parent = $(this).parent();
 	    	$parent.find(".formtips").remove();      				
-				if(!/.+@+\.[a-zA-Z]{2,4}$/.test(this.value)){    		
+				if(! /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(this.value)){    		
 					var errorMsg = '请输入正确邮箱地址.';
 					$parent.append('<span class="formtips error">' +errorMsg+ '</span>'); 
 					var txt_value = $(this).val();//得到当前文本框的值

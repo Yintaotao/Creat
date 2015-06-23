@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax中JSON和XML的传输方式</title>
+	<script type="text/javascript">
+	//用JSON格式返回数据
+	function Load(){
+		var xmltttp;
+		if(window.XMLHTTPRequest){
+			xmltttp = new XMLHTTPRequest();
+		}else{
+			xmltttp = new ActiveXObject("microsoft.XMLHTTP")
+		}
+		xmltttp.onreadystatechange = function(){
+			if(xmltttp.readyState == 4 && xmltttp.status == 200){
+				var responseObj = eval("('+xmltttp.responseText+')");
+				updateJSON(responseObj);
+			}
+		}
+		xmlhttp.open("GET",JSON.jsp,true);
+		xmlhttp.send();
+}
+
+		function updateJSON(responseObj){
+			alert(responseObj.likes[2]);
+			alert(responseObj.book.title);
+			document.getElementById('resultDiv').innerHTML = responseObj.name;
+			document.getElementById('resultDiv2').innerHTML = responseObj.password;
+		}
+	}
+	</script>
+</head>
+<body>
+<form action="#">
+<button id="json" onclick="Load()">点击1</button>
+</form>
+<p id="resultDiv"></p>
+<button id="json" onclick="Load()">点击1</button>
+<p id="resultDiv2"></p>	
+</body>
+</html>

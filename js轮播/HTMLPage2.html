@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js轮播测试</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #wrap {
+            margin: 100px auto;
+            width:650px;
+            height:550px;
+            position: relative;
+            overflow: hidden;
+        }
+        #slide {
+        	position: absolute;
+        	top: 0;
+        	left: 0;
+        }
+        #slide img{
+        	border: 0;
+        	float: left;
+        }
+        #selectSlide ul{
+            position: absolute;
+            top: 480px;
+            left: 480px;
+            list-style: none;
+            height: 30px;
+        }
+        #selectSlide ul li{
+            float: left;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            margin-left: 2px;
+            background-color: #666;
+            opacity: 0.4;
+            color: black;
+            text-align: center;
+            border-radius:2px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="slide">
+            <a target="_blank" href="#"><img src="images/1.png" alt="1" /></a>
+            <a target="_blank" href="#"><img src="images/2.png" alt="2" /></a>
+            <a target="_blank" href="#"><img src="images/3.png" alt="3" /></a>
+            <a target="_blank" href="#"><img src="images/4.png" alt="4" /></a>
+        </div>
+        <div id="selectSlide">
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+        </div>
+    </div>
+
+<script type="text/javascript">
+//定义全局参数
+	var flag=0;
+   	var autoSlide = document.getElementById('slide');//自动轮播参数
+   	var handSlide = document.getElementById('selectSlide');//获取手动轮播参数
+   	var lis = handSlide.getElementsByTagName('li');//获取手动轮播li标签
+   	lis[0].style.backgroundColor = '#fff';//打开网页时，假定轮播第一张图片，设置lis[0]标签背景颜色
+
+
+   window.onload = function(){   	  
+   var time = setInterval("slide();",3000);
+
+   //自动轮播：自动轮播时当有鼠标划入到轮播区域则停止轮播，鼠标移出区域时继续轮播
+   autoSlide.onmouseover = function(){
+   	clearInterval(time);
+   }
+   autoSlide.onmouseout = function(){
+   	time = setInterval("slide();",3000);
+   }
+
+   //手动轮播：鼠标放在某li标签上时，就显示某li标签对应的图片，并且停止轮播。鼠标离开时继续轮播
+   for(var i =0; i<lis.length;i++){
+   	lis[i].onmouseover = function(){
+   		slide(this.innerHTML);
+   		clearInterval(time);
+   	}
+   	lis[i].onmouseout = function(){
+   		time = setInterval("slide();",3000);
+   	}
+   }
+ }
+ //轮播函数
+ 	function slide(value){
+   		if(value != null) flag = value-2;
+   		if(flag < lis.length-1)//要减1，循环时值为0,1,2,3,4
+   			flag++;
+   		else
+   			flag = 0;
+   		autoSlide.style.top = flag * (-550) + 'px';
+   		for (var j = 0; j < lis.length; j++) {
+                lis[j].style.backgroundColor = "#666";
+            }
+            lis[flag].style.backgroundColor = "#fff";
+   	}   
+</script>
+</body>
+</html>
+
+
+ 

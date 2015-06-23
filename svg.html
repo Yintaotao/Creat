@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>好玩的SVG---可爱的小猫咪</title>
+</head>
+<body>
+<!--SVG-小猫咪-->
+<svg width="200" height="200">
+        <title>Cat</title>
+        <desc>Stick Figure of a Cat</desc>
+        <!--画猫咪脸轮廓-->
+        <circle cx="100" cy="95" r="50" style="stroke: black; fill: none;" />
+        <!--画猫咪脸两只眼睛-->
+        <circle cx="85" cy="80" r="5" stroke="black" fill="#008B8B" />
+        <circle cx="115" cy="80" r="5" stroke="black" fill="#008B8B" />
+        <!--画出右侧胡子，折线-->
+        <g id="whiskers">
+            <line x1="105" y1="95" x2="165" y2="85" style="stroke: black;" />
+            <line x1="105" y1="95" x2="165" y2="105" style="stroke: black;" />
+        </g>
+        <!--根据右侧胡子画左侧胡子-->
+        <use xlink:href="#whiskers" transform="scale(-1 1) translate(-200 0)" />
+        <!-- ears -->
+        <polyline points="138 62, 150 10, 100 45, 50 10, 62, 62"
+                  style="stroke: black; fill: none;" />
+        <!-- mouth1 -->
+        <!--
+        <polyline points="65 110, 75 120, 125 120, 135, 110"
+                  style="stroke: black; fill: none;" />
+        -->
+         <!-- mouth2 -->
+        <path d="M70 115 C95 130,110 130,130 115" fill="none" stroke="blue" stroke-width="5"/>        
+        <!-- nose -->
+        <path d="M 105 90 L 95 90 A 5 10 0 0 0 105 90"
+              style="stroke: black; fill: #ffcccc" />
+    </svg>
+
+</body>
+
+</html>

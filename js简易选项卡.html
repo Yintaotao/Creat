@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Js简易选项卡</title>
+	<style type = "text/css">
+	    * {
+	        margin: 0px;
+	        padding: 0px;
+	    }
+	    div#wrap {
+	        margin: 50px auto;
+            width:604px;
+	    }
+	    #item {
+	        height: 40px;
+	        border: 2px solid #000;
+	        border-radius: 5px 5px 0 0;
+	        background-color: black;
+	    }
+        #item ul {
+            list-style:none;
+            }
+	    #item ul li {
+	        width: 120px;
+	        height: 40px;
+	        line-height: 40px;
+            float:left;
+            text-align:center;
+	        color: #fff;
+	        border-radius: 5px;
+            
+	    }
+	        #item li:hover {
+	            color: black;
+	            background-color: #129884;
+	        }
+	    div#content {
+	        width: 600px;
+	        border: 2px solid #000;
+            border-radius:0 0 5px 5px;
+            border-top:0px;
+            box-shadow:5px 5px 8px #666;
+	    }
+	    div.wrapDiv {
+	        display: none;
+	        clear: both;
+	    }
+	    div#content ul {
+	        list-style: disc;
+	        margin-left: 40px;
+	    }
+	</style>
+    <script>
+        function $(id) {
+            return document.getElementById(id);
+        }
+        function divOne() {
+            $("Div1").style.display = "block";
+            $("Div2").style.display = "none";
+            $("Div3").style.display = "none";
+            $("Div4").style.display = "none";
+            $("Div5").style.display = "none";
+        }
+        function divTwo() {
+            $("Div2").style.display = "block";
+            $("Div1").style.display = "none";
+            $("Div3").style.display = "none";
+            $("Div4").style.display = "none";
+            $("Div5").style.display = "none";
+        }
+        function divThree() {
+            $("Div3").style.display = "block";
+            $("Div1").style.display = "none";
+            $("Div2").style.display = "none";
+            $("Div4").style.display = "none";
+            $("Div5").style.display = "none";
+        }
+        function divFour() {
+            $("Div4").style.display = "block";
+            $("Div2").style.display = "none";
+            $("Div3").style.display = "none";
+            $("Div1").style.display = "none";
+            $("Div5").style.display = "none";
+        }
+        function divFive() {
+            $("Div5").style.display = "block";
+            $("Div2").style.display = "none";
+            $("Div3").style.display = "none";
+            $("Div4").style.display = "none";
+            $("Div1").style.display = "none";
+        }
+    </script>
+
+</head>
+<body>
+	<div id="wrap">
+        <div id="item">
+            <ul>
+                <li onmouseover="divOne();">选项1</li>
+                <li onmouseover="divTwo();">选项2</li>
+                <li onmouseover="divThree();">选项3</li>
+                <li onmouseover="divFour();">选项4</li>
+                <li onmouseover="divFive();">选项5</li>
+            </ul>
+        </div>
+		<div id="content">
+            <div id="Div1" class="wrapDiv">
+                <ul>
+				<li>W3C标准</li>
+				<li>IE事件</li>
+				<li>DOM事件</li>
+				<li>CSS选择器</li>
+				<li>HTML语义化</li>
+			</ul>
+            </div>
+			<div id="Div2" class="wrapDiv">
+                <ul>
+				<li>数据类型</li>
+				<li>对象</li>
+				<li>数组</li>
+				<li>函数</li>
+				<li>正则</li>
+                <li>模块化</li>
+			</ul>
+            </div>
+            <div id="Div3" class="wrapDiv">
+                <ul>
+				<li>自动播放</li>
+				<li>自动轮播</li>
+				<li>漂浮效果</li>
+				<li>放大效果</li>
+				<li>缩小效果</li>
+			</ul>
+            </div>
+            <div id="Div4" class="wrapDiv">
+                <ul>
+				<li>改变背景颜色</li>
+				<li>改变字体大写</li>
+				<li>改变边框</li>
+				<li>改变背景透明度</li>
+				<li>改变颜色</li>
+			</ul>
+            </div>
+            <div id="Div5" class="wrapDiv">
+                <ul>
+				<li>自动播放</li>
+				<li>自动轮播</li>
+				<li>漂浮效果</li>
+				<li>放大效果</li>
+				<li>over~~</li>
+				<li>the end</li>			
+			</ul>
+            </div>
+		</div>
+	</div>
+</body>
+</html>
+

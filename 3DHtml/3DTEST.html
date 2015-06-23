@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style type="text/css">
+    	*{
+    		padding: 0px;
+    		margin: 0px;
+    	}
+    	body {
+    		height: 100%;
+    		width: 100%;
+    		background-color: black;
+    	}
+        #leftDiv {
+        	margin:50px auto;
+            width: 100%;
+            height: 500px;
+            -webkit-perspective: 800;
+            -moz-perspective: 800;
+            -moz-perspective-origin: 50% 50%;
+        }
+
+
+        #stage {
+            width: 100%;
+            height: 100%;
+            -webkit-perspective: 800; /*Z轴呈现距离*/
+            -moz-perspective: 800;
+            -webkit-perspective-origin: 100% 50%; /*Z轴固定时 x 和 y的呈现方式 默认在元素平面的中心50% 50%*/
+            -moz-perspective-origin: 50% 50%;
+            -webkit-transform-style: preserve-3d; /*3D呈现*/
+            -moz-transform-style: preserve-3d;
+            -webkit-transition: -webkit-transform 2s;
+            -moz-transition: -webkit-transform 2s;
+        }
+
+        #shape {
+            position: relative;
+            top: 160px;
+            margin: 0 auto;
+            height: 200px;
+            width: 200px;
+            -webkit-transform-style: preserve-3d; /*3D形式呈现*/
+            -moz-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+
+        .plane {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 200px;
+            width: 200px;
+            border: 1px solid white;
+            /*-webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            border-radius: 50px;*/
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            text-align: center;
+            font-family: Times, serif;
+            font-size: 14px;
+            color: black;
+            background-color: rgba(67, 181, 180, 0.60);
+            -webkit-transition: -webkit-transform 2s, opacity 2s;
+            -moz-transition: -webkit-transform 2s, opacity 2s;
+            -webkit-backface-visibility: visible; /*是否呈现元素的背面*/
+            -moz-backface-visibility: visible;
+        }
+
+
+        .one {
+            opacity: 0.5;
+            -webkit-transform: scale3d(1.2, 1.2, 1.2) rotateX(90deg) translateZ(100px); /*3D变化遵循先后顺序 如果是多次变化需要按照 后面的需要根据前一次变化的结果再重新定义*/
+            -moz-transform: scale3d(1.2, 1.2, 1.2) rotateX(90deg) translateZ(100px);
+        }
+
+        .two {
+            opacity: 0.5;
+            -webkit-transform: scale3d(1.2, 1.2, 1.2) translateZ(100px);
+            -moz-transform: scale3d(1.2, 1.2, 1.2) translateZ(100px);
+        }
+
+        .three {
+            opacity: 0.5;
+            -webkit-transform: scale3d(1.2, 1.2, 1.2) rotateY(90deg) translateZ(100px);
+            -moz-transform: scale3d(1.2, 1.2, 1.2) rotateY(90deg) translateZ(100px);
+        }
+
+        .four {
+            opacity: 0.5;
+            -webkit-transform: scale3d(1.2, 1.2, 1.2) rotateY(180deg) translateZ(100px);
+            -moz-transform: scale3d(1.2, 1.2, 1.2) rotateY(180deg) translateZ(100px);
+        }
+
+        .five {
+            opacity: 0.5;
+            /*-webkit-transform: scale3d(1.2, 1.2, 1.2) rotateY(-90deg) translateZ(100px);
+            -moz-transform: scale3d(1.2, 1.2, 1.2) rotateY(-90deg) translateZ(100px);*/
+            -webkit-transform: scale3d(1.2, 1.2, 1.2) rotateY(90deg) translateZ(-100px);
+            -moz-transform: scale3d(1.2, 1.2, 1.2) rotateY(90deg) translateZ(-100px);
+        }
+
+        .six {
+            opacity: 0.5;
+            /*-webkit-transform: scale3d(1.2, 1.2, 1.2) rotateX(-90deg) translateZ(100px) rotate(180deg);
+            -moz-transform: scale3d(1.2, 1.2, 1.2) rotateX(-90deg) translateZ(100px) rotate(180deg);*/
+            -webkit-transform: scale3d(1.2, 1.2, 1.2) rotateX(90deg) translateZ(-100px);
+            -moz-transform: scale3d(1.2, 1.2, 1.2) rotateX(90deg) translateZ(-100px);
+        }
+
+        #shape img {
+            width: 200px;
+            height: 200px;
+            /*border-radius: 50px;*/
+        }
+
+        #shape.backfaces .plane {
+            -webkit-backface-visibility: visible;
+            /*-webkit-backface-visibility: visible;*/
+            -moz-backface-visibility: visible;
+        }
+
+        .cddd {
+            -webkit-animation: spin 7s infinite linear;
+            -moz-animation: spin 7s infinite linear;
+        }
+
+        @-webkit-keyframes spin {
+            from {
+                -webkit-transform: rotateX(0) rotateY(0);
+                -moz-transform: rotateX(0) rotateY(0);
+            }
+
+            to {
+                -webkit-transform: rotateX(360deg) rotateY(360deg);
+                -moz-transform: rotateX(360deg)rotateY(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="leftDiv">
+        <div id="stage">
+            <div id="shape" class="cddd">
+                <div class="plane one"><img src="images/1.png"></div>
+                <div class="plane two"><img src="images/2.png"></div>
+                <div class="plane three"><img src="images/3.png"></div>
+                <div class="plane four"><img src="images/4.png"></div>
+                <div class="plane five"><img src="images/5.png"></div>
+                <div class="plane six"><img src="images/6.png">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

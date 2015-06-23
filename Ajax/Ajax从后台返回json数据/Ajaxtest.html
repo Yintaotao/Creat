@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript">
+        var delay = setTimeout('showHint();', 3000);
+        function showHint() {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            }
+            else {// code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    
+                    var jsontext = xmlhttp.responseText;
+                    var objtext = JSON.parse(jsontext);
+
+                    console.log(jsontext);
+                    console.log(objtext.favorite);
+                   
+                    document.getElementById("txtHint").innerHTML = "<br>" + jsontext;
+                    document.getElementById("txtHint").innerHTML += "<br>" + objtext.favorite.color;
+                }
+            }
+
+            xmlhttp.open("GET", "user.json", true);
+            xmlhttp.send();
+        }
+    </script>
+</head>
+<body>
+
+    <p>目录：<span id="txtHint"></span></p>
+
+</body>
+</html>
+
