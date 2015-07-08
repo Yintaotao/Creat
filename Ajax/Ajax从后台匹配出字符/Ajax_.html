@@ -22,6 +22,10 @@
 
             xmlhttp.open("GET", "gethint.asp?q=" + str, true);//对应于gethint.asp文件
             xmlhttp.send();
+//             在上面的例子中，您可能得到的是缓存的结果。
+// 为了避免这种情况，请向 URL 添加一个唯一的 ID：
+// xmlhttp.open("GET","demo_get.asp?t=" + Math.random(),true);
+// xmlhttp.send();
         }
     </script>
 </head>

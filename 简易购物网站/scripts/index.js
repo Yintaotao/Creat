@@ -9,14 +9,14 @@ function picSlide() {
 
     lis[0].style.backgroundColor = '#f23d0c';//打开网页时，假定轮播第一张图片，设置lis[0]标签背景颜色
 
-    var time = setInterval("slide();", 3000);
+    var time = setInterval("slide();", 4000);
 
     //自动轮播：自动轮播时当有鼠标划入到轮播区域则停止轮播，鼠标移出区域时继续轮播
     autoSlide.onmouseover = function () {
         clearInterval(time);
     }
     autoSlide.onmouseout = function () {
-        time = setInterval("slide();", 3000);
+        time = setInterval("slide();", 4000);
     }
 
     //手动轮播：鼠标放在某li标签上时，就显示某li标签对应的图片，并且停止轮播。鼠标离开时继续轮播
@@ -26,7 +26,7 @@ function picSlide() {
             clearInterval(time);
         }
         lis[i].onmouseout = function () {
-            time = setInterval("slide();", 3000);
+            time = setInterval("slide();", 4000);
         }
     }
     //轮播函数

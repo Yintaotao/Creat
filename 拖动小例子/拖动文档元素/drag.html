@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style type="text/css">
+ 
+  </style>
+  <script type="text/javascript">
+  document.write('<p>Document title:'+document.title);
+  document.write('<br>URL'+document.url)
+  </script>
+ </head>
+ <body>
+ <!-- 要拖动的元素 -->
+ <div style="position:absolute;left:100px;top:100px;width:250px;background-color:white;border:1px solid black;">
+ <!-- 通过“标题栏”拖动整个元素，注意onmousedown属性 -->
+ 	<div style="background-color:gray;border-bottom:dotted black;padding:3px;font-wight:bold;" onmousedown="drag(this.parentNode,event);">
+ 	拖动我！
+ 	</div>
+	<p>这是一个测试，测试中，测试中</p>
+	<p>测试</p>
+	<p>测试</p>
+ </div>
+<!--  这里的关键是<div>元素的onmousedown属性。注意，它使用this.parentNode指定整儿容器元素将被拖动 -->
+ <script type="text/javascript" src="drag.js"></script>
+ </body>

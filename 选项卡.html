@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>选项卡</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+			font-size: 14px;
+		}
+	 	ul , li {
+	 		list-style: none;
+	 	}
+	 	#box {
+	 		width: 600px;
+	 		margin: 10px auto;
+	 		text-align: center;
+	 		position: relative;
+	 	}
+	 	#box ul {
+	 		position: absolute;
+	 		z-index: 1;
+	 		height: 30px;
+	 	}
+	 	#box ul li {
+	 		width: 100px;
+	 		float: left;
+	 		height: 30px;
+	 		line-height: 30px;
+	 		background: #f0fcff;
+	 		border: 1px solid #eee;
+	 		margin: 0 5px; 
+	 		cursor: pointer;
+	 		border-radius: 10px 10px 0 0;
+	 		color: #023544;
+	 	}
+	 	#box ul li.hover {
+	 		color: #7f0069;
+	 		background: #fff;
+	 		border-bottom: none;
+	 	}
+	 	#box div {
+	 		width: 598px;
+	 		height: 200px;
+	 		clear: both;
+	 		line-height: 200px;
+	 		border: 1px solid #eee;
+	 		font-size: 20px;
+	 		font-weight: bold;
+	 		display: none;
+	 		position: absolute;
+	 		z-index: 0;
+	 		top: 30px;
+	 		left: 0;
+	 	}
+	 	#box div.count {
+	 		display: block;
+	 	}
+
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var box = document.getElementById("box"),
+				lis = box.getElementsByTagName("li"),
+				div = box.getElementsByTagName("div");
+			function li(){
+				for( var i = 0; i < lis.length; i++ ){
+					lis[i].indexs = i;
+					lis[i].onclick = function(){
+						for( var j = 0; j < lis.length; j++ ){
+							lis[j].className = "";
+							div[j].className = "";
+						}
+						this.className = "hover";
+						div[this.indexs].className = "count";
+					}
+				}	
+			}
+			li();
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li class="hover">选项一</li>
+			<li>选项二</li>
+			<li>选项三</li>
+			<li>选项四</li>
+			<li>选项五</li>
+		</ul>
+		<div class="count">选项卡内容一</div>
+		<div>选项卡内容二</div>
+		<div>选项卡内容三</div>
+		<div>选项卡内容四</div>
+		<div>选项卡内容五</div>
+	</div>
+</body>
+</html>

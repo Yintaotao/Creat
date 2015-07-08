@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<script type="text/javascript">		
+			function init(){
+				var y = document.getElementById('y');
+				var m = document.getElementById('m');
+				var str = '';
+				for(var i=2000;i<2030;i++){
+					str += '<option value="'+i+'">'+i+'</option>';
+				}
+				y.innerHTML = str;
+				str = '';
+				for(var i=1;i<=12;i++){
+					str += '<option value="'+i+'">'+i+'</option>';
+				}
+				m.innerHTML = str;
+				m.onchange = function(){
+					var year = document.getElementById('y').value;
+					year = parseInt(year);
+					var month = parseInt(this.value);
+					var days = 30;
+					if(isRunNian(year)&&month==2){
+						days = 29;
+					}else if(!isRunNian(year)&&month==2){
+						days = 28;
+					}else if(month == 1
+						||month == 3
+						||month == 5
+						||month == 7
+						||month == 8
+						||month == 10
+						||month == 12){
+						days = 31;
+					}					
+					var str = '<tr>';
+					for(var i=1;i<=7;i++){
+						str += '<td>星期'+i+'</td>';
+					}
+					str += '</tr>';
+					
+					var date = new Date(year,month-1,1);
+					var week = date.getDay();
+					var j = 1;
+					while(true){
+						str += '<tr>';
+						for(var i=1;i<=7;i++){
+							if(j == 1 && i==week){
+								str += '<td onclick="showDay('+j+');">1</td>';
+								j++;
+							}else if(j > 1 && j<=days){
+								str += '<td onclick="showDay('+j+');">'+j+'</td>';
+								j++;
+							}else
+								str += '<td>&nbsp;</td>';
+						}
+						str += '</tr>';
+						if(j >= days)
+							break;
+					}
+					document.getElementById('tbl').innerHTML = str;
+				};
+			}
+			function isRunNian(y){
+				return y % 4 ==0;
+			}
+			function showDay(d){
+				var y = document.getElementById('y').value;
+				var m = document.getElementById('m').value;
+				alert('您选择的日期是：'+y+'年'+m+'月'+d+'日');
+			}
+		</script>	
+	</head>
+	<body style="text-align:center" onload="init();">
+		<p>
+			点击选择日期
+		</p>
+		<p>
+			<select id="y"></select>年
+			<select id="m"></select>月
+		</p>
+		<table id="tbl" border="1" align="center"></table>
+	</body>
+</html>

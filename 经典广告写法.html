@@ -1,0 +1,83 @@
+
+
+
+
+	
+	<!-- 预览的广告js代码的script标签上增加id="pc_ivy_script"属性-->
+	<script>var media35888 = function(URL,SRC,SRC2,SRC3,SRC4,id){
+        window["isHasRichMeida"]=true;
+	if(/ipad|iphone/.test(window.navigator.userAgent.toLowerCase())) return false;
+
+	var param = { w : 760, h : 400, fb : 0, cright : 0, ctop : 0, mtop : 0, left : 0, top : 0, right : 0, bottom : 0, delay : 0, byo : false, delayStart : 0, bgiframe : false,replay : 1,css:undefined},
+	o = extend(param,SRC3),
+	hasSmall = SRC2 != '{'+'SRC2}',
+	hasPVcode = SRC4 != '{'+'SRC4}',
+	gtIE6 = !/MSIE/.test(navigator.appVersion) || window.XMLHttpRequest&&/CSS1Compat/.test(document.compatMode),
+	rplayPos = (o.left ? 'left:'+o.left+'px;' : 'right:'+o.right+'px;') + (o.bottom ? 'bottom:'+o.bottom+'px;' : 'top:'+o.top+'px;'),
+	mediaCodes = [],
+    smallAd = hasSmall ? ivyHTML4PicOrFlash(SRC2,URL,"smallMedia"+id) : "",
+	richAd  = ivyHTML4PicOrFlash(SRC,URL,id),
+	timer = null;
+
+	var closeFbBtn = "<br><div style='position:absolute;width:80px;font-size:14px;'>&#160;</div><span onclick='media35888.hide();this.offsetParent.style.display=\"none\"' style='position:absolute;width:27px; height:15px; cursor:pointer; background:url(http://www1.pconline.com.cn/test/20100309/bg.png) no-repeat 0 0; overflow:hidden;right:0;'></span>",
+	replayBtn = "<span id=replay_35888 onclick=\"media35888.show()\" style='position:absolute;width:27px; height:15px; cursor:pointer; background:url(http://www1.pconline.com.cn/test/20100309/bg.png) no-repeat -32px 0; overflow:hidden;display:none;"+(o.fb ? "left:0;display:block;" : rplayPos)+"'></span>",
+	closeMediaBtn = "<span onclick=\"media35888.hide()\" style='width:41px; height:15px; cursor:pointer; background:url(http://www1.pconline.com.cn/test/20100309/bg.png) no-repeat -154px 0; overflow:hidden;position:absolute;top:"+o.ctop+"px;right:"+o.cright+"px;'></span>";
+
+    smallAd += (o.fb ? closeFbBtn : "") + (o.replay ? replayBtn : "");
+	richAd += !o.byo ? closeMediaBtn : "";
+
+    mediaCodes.push("<div id=richmedia35888 style='display:none;z-index:100000;left:50%;top:50%;margin-left:-"+o.w/2+"px;margin-top:-" + (o.h/2-o.mtop)+"px;" + (gtIE6 ? 'position:fixed' : 'position:absolute;top:expression(documentElement.scrollTop + documentElement.clientHeight/2)') + "'><a href='www.like-js.com'></a></div>");
+    hasSmall && mediaCodes.push("<div id=richmedia_small35888 style='" + (!o.fb ? "position:relative;text-align:center;zoom:1;" : "display:none;right:0;z-index:100000;" + (gtIE6 ? "position:fixed;top:" + o.fb + "px;" : "position:absolute;top:expression(" + o.fb + " + documentElement.scrollTop)")) + "'>" + smallAd + "</div>");
+	hasPVcode && mediaCodes.push('<img src="'+ SRC4.replace(/timestamp/,new Date()*1) +'" style="display:none" />');
+	o.css && mediaCodes.push("<style>"+o.css+"</style>");
+	document.writeln(mediaCodes.join(""));
+
+	// 移动浮层到body直属子元素，防止通栏css对浮层的影响
+	hasSmall && !o.fb && document.body.insertBefore(find("richmedia35888"),document.body.firstChild);
+
+var m = {
+	show : function() {
+	    var div=find('richmedia35888');
+	    div.innerHTML = richAd;
+	    div.style.display='block';
+	    if(o.delay)
+	    	if(/\.swf/i.test(SRC)){
+	    		timer=setTimeout(m.hide,o.delay*1000);
+	    	}else{
+	    		find("adImg35888").onload = function(){ timer=setTimeout(m.hide,o.delay*1000); };	
+	    	};
+		// 防止IE6下select遮盖问题
+		if(o.bgiframe && !gtIE6)needJS(window.jQuery,"http://www1.pconline.com.cn/js/pc.jquery1.3.js",function(){
+			window.jQuery('#richmedia35888').bgiframe();
+		});
+	    if(hasSmall) {
+			if(o.fb){
+				find("richmedia_small35888").style.display='none';
+			}else{
+				o.replay && (find("replay_35888").style.display='none');
+			}			
+		}
+	},
+	hide : function() {
+	    var richMd=find('richmedia35888');
+	    if(richMd.style.display=='none') return;
+	    richMd.style.display='none';
+	    if(!hasSmall) return;
+        if(o.fb){
+            find("richmedia_small35888").style.display='block';
+        }else{
+            o.replay && (find("replay_35888").style.display='block');
+        }
+	    clearTimeout(timer);
+	}
+}
+
+function extend(destination, source){ for (var property in source) { destination[property] = source[property];}	return destination;}
+function find(s){ return document.getElementById(s); }
+function ivyHTML4PicOrFlash(D,B,_){if(typeof _=="undefined")_="";if(!D.match(/\.swf/i))return"<a id=\"ad"+_+"\" target=_blank href=\""+B+"\"><img id=\"adImg"+_+"\" border=0 src=\""+D+"\"></a>";var $=1*D.replace(/^.*#(\d+)x(\d+).*$|^.*$/,"$1");if($<1)$=950;var C=1*D.replace(/^.*#(\d+)x(\d+).*$|^.*$/,"$2");if(C<1)C=90;var A=/#transparent/i.test(D);D=D.replace(/#.*$/,"");return"<OBJECT id=\"ad"+_+"\" classid=clsid:D27CDB6E-AE6D-11cf-96B8-444553540000 WIDTH="+$+" HEIGHT="+C+"><PARAM NAME=movie VALUE="+D+"><PARAM NAME=allowScriptAccess VALUE=always><param name=wmode value="+(A?"transparent":"opaque")+"><EMBED name=\"ad"+_+"\" src="+D+" WIDTH="+$+" HEIGHT="+C+" wmode="+(A?"transparent":"opaque")+" allowscriptaccess=always TYPE=application/x-shockwave-flash PLUGINSPAGE=http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash></EMBED></OBJECT>"}
+function needJS(E,C,B){B=B||function(){};if(E)return B(false);var $=window.__needJS__||(window.__needJS__=[]),D=$[C]||($[C]={loaded:false,callbacks:[]});if(D.loaded)return B(false);var _=D.callbacks;if(_.push(B)==1){var A=document.createElement("script");A.onload=A.onreadystatechange=function(){var $=A.readyState;if($&&$!="loaded"&&$!="complete")return;D.loaded=true;for(var B=0;B<_.length;B++)_[B](true)};A.src=C;document.getElementsByTagName("head")[0].appendChild(A)}}
+
+// 执行并公开show和hide方法
+setTimeout(m.show,o.delayStart*1000);
+return m;
+}("","http://img0.pconline.com.cn/ivy/image/20156/26/14353119992580.swf#1120x400","{SRC2}",{w:1120,h:400,delay:12},"{SRC4}","35888");</script>
